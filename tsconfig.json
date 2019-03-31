@@ -1,0 +1,24 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "src": ["src"]
+        },
+        "jsx": "react",
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "es5",
+            "es6"
+        ],
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

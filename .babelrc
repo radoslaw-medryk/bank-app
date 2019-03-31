@@ -1,0 +1,23 @@
+{
+    "presets": [
+        ["@babel/env", {
+            "modules": false,
+            "useBuiltIns": "entry",
+            "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead"
+        }],
+        "@babel/react",
+        ["linaria/babel", {
+            "displayName": true
+        }],
+        "@babel/typescript"
+    ],
+    "plugins": [
+        ["module-resolver", {
+            "root": ".",
+            "alias": {
+                "src": "./src"
+            }
+        }],
+        "@babel/proposal-class-properties"
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm-start",
+            "type": "shell",
+            "command": "npm",
+            "args": ["start"],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "_____"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "_____",
+                    "endsPattern": "^.*Compiled successfully.*$"
+                }
+            }
+        },
+        {
+            "label": "stop-task",
+            "type": "process",
+            "dependsOn": ["_0_stop-task"],
+            "command": ["${command:workbench.action.acceptSelectedQuickOpenItem}"]
+        },
+        {
+            "label": "_0_stop-task",
+            "type": "process",
+            "command": ["${command:workbench.action.tasks.terminate}"]
+        }
+    ]
+}

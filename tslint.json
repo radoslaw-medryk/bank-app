@@ -1,0 +1,3 @@
+{
+    "extends": ["@radoslaw-medryk/tslint", "tslint-config-prettier"]
+}
