@@ -4,7 +4,6 @@ export type IconType = "Wallet" | "Transfer" | "Cards" | "More";
 
 export type IconProps = {
     type: IconType;
-    fill?: string;
 };
 
 export const Icon: React.SFC<IconProps> = ({ type, ...rest }) => {
