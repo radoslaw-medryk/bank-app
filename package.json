@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "build": "mkdir -p dist && rm -r dist && npm run prettier-check && tsc && wp --mode production",
-        "deploy": "npm run build && npx firebase delploy --project bank-proj",
+        "deploy": "npm run build && npx firebase deploy --project bank-proj",
         "start": "webpack-serve",
         "lint:css": "stylelint src/**/*.tsx",
         "prettier": "prettier ./src/**/*.{js,ts,tsx,json,html} --write",

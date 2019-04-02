@@ -1,38 +1,11 @@
 import * as React from "react";
-import { Money } from "src/models/Money";
 import { AccountSwitcher } from "./AccountSwitcher";
 import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
-import { Big } from "big.js";
-
-const accounts: Money[] = [
-    {
-        value: new Big("12439.58"),
-        currency: {
-            code: "USD",
-            name: "US Dollar",
-            symbol: "$",
-            symbolLocation: "left",
-        },
-    },
-    {
-        value: new Big("1002345.0"),
-        currency: {
-            code: "PLN",
-            name: "Polish złoty",
-            symbol: "zł",
-            symbolLocation: "right",
-        },
-    },
-    {
-        value: new Big("888888.88"),
-        currency: {
-            code: "CNY",
-            name: "Chinese Yuan",
-            symbol: "¥",
-            symbolLocation: "left",
-        },
-    },
-];
+import { QuickMenu } from "./QuickMenu";
+import { QuickMenuItem } from "./QuickMenu/Item";
+import { TransactionList } from "./TransactionList";
+import { accounts, mockTransactions } from "src/helpers/mock";
+import { Transaction } from "src/models/Transaction";
 
 export type TestProps = {
     //
@@ -40,17 +13,31 @@ export type TestProps = {
 
 export const Test: React.SFC<TestProps> = ({}) => {
     const initialIndex = 1;
-    const [index, setIndex] = React.useState(initialIndex);
 
-    const onChange = (i: number) => setIndex(i);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [transactions, setTransactions] = React.useState<Transaction[]>(mockTransactions(15));
+
+    const onNextRequested = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            const newTransactions = [...transactions, ...mockTransactions(10)];
+            setTransactions(newTransactions);
+            setIsLoading(false);
+        }, 500);
+    };
+    //
 
     return (
         <>
-            <div style={{ height: 200 }} />
-            {index}
+            <QuickMenu>
+                <QuickMenuItem icon={"Accounts"} href="#" />
+                <QuickMenuItem icon={"Exchange"} href="#" />
+                <QuickMenuItem icon={"Add"} href="#" />
+            </QuickMenu>
+            <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
             <div style={{ height: 50 }} />
-            <AccountSwitcher accounts={accounts} initialIndex={initialIndex} onSelectedAccountChanged={onChange} />
-            <div style={{ height: 200 }} />
+            <TransactionList items={transactions} isLoading={isLoading} onNextBatchRequested={onNextRequested} />
+            <div style={{ height: 50 }} />
             <MobileMenuContainer />
         </>
     );

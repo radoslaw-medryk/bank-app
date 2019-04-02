@@ -10,6 +10,7 @@ const AccountSwitcherBox = styled.div`
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 
     & > * {
         flex: 0 0 100%;
@@ -33,18 +34,22 @@ export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({
     const elementCount = accounts.length;
 
     const [index, setIndex] = React.useState(initialIndex || 0);
-    const switcherRef = React.useRef<HTMLDivElement>(null);
+    const boxRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
-        if (switcherRef.current) {
-            const scrollWidth = switcherRef.current.scrollWidth;
+        if (boxRef.current) {
+            const scrollWidth = boxRef.current.scrollWidth;
             const newScrollLeft = (scrollWidth / elementCount) * (initialIndex || 0);
-            switcherRef.current.scrollLeft = newScrollLeft;
+            boxRef.current.scrollLeft = newScrollLeft;
         }
     }, []);
 
-    const onScroll = (event: React.UIEvent<HTMLDivElement>) => {
-        const scrollLeft = event.currentTarget.scrollLeft;
-        const scrollWidth = event.currentTarget.scrollWidth;
+    const onScroll = () => {
+        if (!boxRef.current) {
+            return;
+        }
+
+        const scrollLeft = boxRef.current.scrollLeft;
+        const scrollWidth = boxRef.current.scrollWidth;
 
         const newIndex = Math.round(scrollLeft / (scrollWidth / elementCount));
         if (newIndex !== index) {
@@ -55,7 +60,7 @@ export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({
 
     return (
         <div>
-            <AccountSwitcherBox ref={switcherRef} onScroll={onScroll}>
+            <AccountSwitcherBox ref={boxRef} onScroll={onScroll}>
                 {accounts.map(q => (
                     <AccountSwitcherAccount key={q.currency.symbol} balance={q} />
                 ))}

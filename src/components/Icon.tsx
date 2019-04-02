@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type IconType = "Wallet" | "Transfer" | "Cards" | "More";
+export type IconType = "Accounts" | "Add" | "Close" | "Exchange" | "Search" | "Wallet" | "Transfer" | "Cards" | "More";
 
 export type IconProps = {
     type: IconType;
