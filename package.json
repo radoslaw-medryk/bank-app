@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
         "build": "mkdir -p dist && rm -r dist && npm run prettier-check && tsc && wp --mode production",
+        "deploy": "npm run build && npx firebase delploy --project bank-proj",
         "start": "webpack-serve",
         "lint:css": "stylelint src/**/*.tsx",
         "prettier": "prettier ./src/**/*.{js,ts,tsx,json,html} --write",
@@ -46,6 +47,7 @@
         "webpack-command": "^0.4.2"
     },
     "devDependencies": {
+        "firebase-tools": "^6.5.0",
         "prettier": "^1.16.4",
         "style-loader": "^0.23.1",
         "tslint-config-prettier": "^1.18.0",

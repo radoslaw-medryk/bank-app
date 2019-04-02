@@ -1,4 +1,4 @@
-import Big, { RoundingMode } from "big.js";
+import Big from "big.js";
 
 export type FormatMoneyResult = {
     units: string;
