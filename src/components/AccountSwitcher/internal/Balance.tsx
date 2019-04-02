@@ -3,7 +3,7 @@ import { Money } from "src/models/Money";
 import { formatMoney } from "src/helpers/formatMoney";
 import { styled } from "linaria/react";
 
-const BalanceBox = styled.div`
+const AccountSwitcherBalanceBox = styled.div`
     font-size: 24pt;
     font-weight: 600;
 
@@ -12,7 +12,7 @@ const BalanceBox = styled.div`
     }
 `;
 
-const CentsBox = styled.span`
+const AccountSwitcherCentsBox = styled.span`
     font-size: 14pt;
     font-weight: 600;
 `;
@@ -32,9 +32,9 @@ export const AccountSwitcherBalance: React.SFC<AccountSwitcherBalanceProps> = ({
     const symbolRight = currency.symbolLocation === "right" ? currency.symbol : "";
 
     return (
-        <BalanceBox>
+        <AccountSwitcherBalanceBox>
             {symbolLeft} {units}
-            <CentsBox>.{cents}</CentsBox> {symbolRight}
-        </BalanceBox>
+            <AccountSwitcherCentsBox>.{cents}</AccountSwitcherCentsBox> {symbolRight}
+        </AccountSwitcherBalanceBox>
     );
 };

@@ -1,46 +1,46 @@
 import * as React from "react";
 import { styled } from "linaria/react";
 
-type DotProps = {
+type AccountSwitcherDotProps = {
     isSelected: boolean;
 };
 
-const DotBox = styled.div`
+const AccountSwitcherDotBox = styled.div`
     width: 8px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
 `;
 
-const Dot = styled.div<DotProps>`
+const AccountSwitcherDot = styled.div<AccountSwitcherDotProps>`
     height: ${props => (props.isSelected ? 6 : 4)}px;
     width: ${props => (props.isSelected ? 6 : 4)}px;
     background: ${props => (props.isSelected ? "var(--gray2)" : "var(--gray4)")};
     border-radius: 999px;
 `;
 
-const Box = styled.div`
+const AccountSwitcherBox = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 `;
 
-export type DotsProps = {
+export type AccountSwitcherDotsProps = {
     total: number;
     index: number;
 };
 
-export const AccountSwitcherDots: React.SFC<DotsProps> = ({ total, index }) => {
+export const AccountSwitcherDots: React.SFC<AccountSwitcherDotsProps> = ({ total, index }) => {
     let dots: React.ReactNode[] = [];
     for (let i = 0; i < total; i++) {
         dots = [
             ...dots,
-            <DotBox key={i}>
-                <Dot isSelected={i === index} />
-            </DotBox>,
+            <AccountSwitcherDotBox key={i}>
+                <AccountSwitcherDot isSelected={i === index} />
+            </AccountSwitcherDotBox>,
         ];
     }
 
-    return <Box>{dots}</Box>;
+    return <AccountSwitcherBox>{dots}</AccountSwitcherBox>;
 };
