@@ -14,14 +14,23 @@ export type TestProps = {
 export const Test: React.SFC<TestProps> = ({}) => {
     const initialIndex = 1;
 
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [transactions, setTransactions] = React.useState<Transaction[]>(mockTransactions(15));
+    const initMockData = mockTransactions(50, new Date());
 
-    const onNextRequested = () => {
+    const [lastDate, setLastDate] = React.useState(initMockData[initMockData.length - 1].date);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [newItems, setNewItems] = React.useState<Transaction[]>(initMockData);
+
+    const getMore = () => {
+        if (isLoading) {
+            return;
+        }
+
         setIsLoading(true);
         setTimeout(() => {
-            const newTransactions = [...transactions, ...mockTransactions(10)];
-            setTransactions(newTransactions);
+            console.log("MOCKING TRANSACTIONS, lastDate = ", lastDate);
+            const mockedItems = mockTransactions(50, lastDate);
+            setLastDate(mockedItems[mockedItems.length - 1].date);
+            setNewItems(mockedItems);
             setIsLoading(false);
         }, 500);
     };
@@ -36,7 +45,7 @@ export const Test: React.SFC<TestProps> = ({}) => {
             </QuickMenu>
             <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
             <div style={{ height: 50 }} />
-            <TransactionList items={transactions} isLoading={isLoading} onNextBatchRequested={onNextRequested} />
+            <TransactionList newItems={newItems} getMore={getMore} />
             <div style={{ height: 50 }} />
             <MobileMenuContainer />
         </>

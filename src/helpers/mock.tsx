@@ -37,12 +37,12 @@ export const accounts: Money[] = [
     },
 ];
 
-const mockTransaction = (): Transaction => {
+const mockTransaction = (date: Date): Transaction => {
     const id = Math.round(Math.random() * 10000);
 
     return {
         id: id,
-        date: new Date(),
+        date: date,
         category: "food",
         title: `Transaction #${id}`,
         value: {
@@ -52,6 +52,18 @@ const mockTransaction = (): Transaction => {
     };
 };
 
-export const mockTransactions = (count: number) => {
-    return new Array(count).fill(0).map(q => mockTransaction());
+export const mockTransactions = (count: number, minDate: Date) => {
+    let result: Transaction[] = [];
+
+    let lastDate = new Date(minDate);
+    for (let i = 0; i < count; i++) {
+        const date = new Date(lastDate.getTime());
+        const addMinutes = Math.round(Math.random() * 600);
+        date.setMinutes(date.getMinutes() + addMinutes);
+        lastDate = new Date(date);
+
+        result = [...result, mockTransaction(date)];
+    }
+
+    return result;
 };
