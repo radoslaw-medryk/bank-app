@@ -6,7 +6,7 @@ import { Icon, IconType } from "../Icon";
 import { TransactionCategory } from "src/models/TransactionCategory";
 import { formatMoney } from "src/helpers/formatMoney";
 
-export const itemHeight = 28;
+export const itemHeight = 24;
 
 const TransactionListItemBox = styled.div`
     width: 100%;
@@ -15,7 +15,7 @@ const TransactionListItemBox = styled.div`
 `;
 
 const TransactionListItemInnerBox = styled.div`
-    font-size: 9pt;
+    font-size: 11px;
     font-weight: 600;
 
     display: flex;

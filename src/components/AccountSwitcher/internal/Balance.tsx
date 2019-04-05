@@ -4,16 +4,16 @@ import { formatMoney } from "src/helpers/formatMoney";
 import { styled } from "linaria/react";
 
 const AccountSwitcherBalanceBox = styled.div`
-    font-size: 24pt;
+    font-size: 24px;
     font-weight: 600;
 
     .cents {
-        font-size: 14pt;
+        font-size: 14px;
     }
 `;
 
 const AccountSwitcherCentsBox = styled.span`
-    font-size: 14pt;
+    font-size: 14px;
     font-weight: 600;
 `;
 

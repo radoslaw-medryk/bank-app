@@ -3,7 +3,7 @@ import { Currency } from "src/models/Currency";
 import { styled } from "linaria/react";
 
 const AccountSwitcherDetailsBox = styled.div`
-    font-size: 12pt;
+    font-size: 12px;
     color: var(--gray4);
 `;
 

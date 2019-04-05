@@ -81,7 +81,12 @@ export const TransactionList: React.SFC<TransactionListProps> = ({ newItems, get
     const isItemLoaded = (i: number) => i < items.length;
 
     return (
-        <InfiniteLoader itemCount={items.length + 1} isItemLoaded={isItemLoaded} loadMoreItems={getMore}>
+        <InfiniteLoader
+            itemCount={items.length + 1}
+            isItemLoaded={isItemLoaded}
+            loadMoreItems={getMore}
+            overscanCount={10}
+        >
             {(loader: any) => (
                 <VariableSizeList
                     height={300}

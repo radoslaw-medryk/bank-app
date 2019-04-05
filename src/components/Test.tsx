@@ -6,6 +6,7 @@ import { QuickMenuItem } from "./QuickMenu/Item";
 import { TransactionList } from "./TransactionList";
 import { accounts, mockTransactions } from "src/helpers/mock";
 import { Transaction } from "src/models/Transaction";
+import { TextField } from "./TextField";
 
 export type TestProps = {
     //
@@ -44,6 +45,8 @@ export const Test: React.SFC<TestProps> = ({}) => {
                 <QuickMenuItem icon={"Add"} href="#" />
             </QuickMenu>
             <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
+            <div style={{ height: 50 }} />
+            <TextField placeholder="Enter name" icon="Search" />
             <div style={{ height: 50 }} />
             <TransactionList newItems={newItems} getMore={getMore} />
             <div style={{ height: 50 }} />
