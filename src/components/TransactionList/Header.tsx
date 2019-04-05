@@ -1,12 +1,16 @@
 import * as React from "react";
 import { styled } from "linaria/react";
+import * as moment from "moment";
 
-export const headerHeight = 20;
+export const headerHeight = 40;
 
 const TransactionListHeaderBox = styled.div`
     width: 100%;
     height: ${headerHeight}px;
-    background: limegreen;
+    padding: 10px 10px 0;
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--gray3);
 `;
 
 export type TransactionListHeaderProps = {
@@ -14,5 +18,14 @@ export type TransactionListHeaderProps = {
 };
 
 export const TransactionListHeader: React.SFC<TransactionListHeaderProps> = ({ date }) => {
-    return <TransactionListHeaderBox>== {date.toString()} ==</TransactionListHeaderBox>;
+    const dateString = moment(date).calendar(undefined, {
+        lastWeek: "dddd, Do MMMM",
+        lastDay: "[Yesterday]",
+        sameDay: "[Today]",
+        nextDay: "[Tomorrow]",
+        nextWeek: "dddd, Do MMMM",
+        sameElse: "dddd, Do MMMM",
+    });
+
+    return <TransactionListHeaderBox>{dateString}</TransactionListHeaderBox>;
 };

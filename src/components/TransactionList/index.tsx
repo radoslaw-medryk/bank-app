@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Transaction } from "src/models/Transaction";
-// import * as InfiniteScroll from "react-infinite-scroll-component";
 import { TransactionListItem, itemHeight } from "./Item";
 import { TransactionListHeader, headerHeight } from "./Header";
 import { getDate } from "src/helpers/getDate";
@@ -8,10 +7,7 @@ import { VariableSizeList, ListChildComponentProps } from "react-window";
 
 const InfiniteLoader = require("react-window-infinite-loader").default;
 
-export type TransactionListProps = {
-    newItems: Transaction[];
-    getMore: () => void;
-};
+// TODO [RM]: too big file, split
 
 type Item = Transaction | Header;
 
@@ -46,6 +42,11 @@ const insertHeaders = (lastItem: Item | undefined, newItems: Item[]) => {
     return results;
 };
 
+export type TransactionListProps = {
+    newItems: Transaction[];
+    getMore: () => void;
+};
+
 export const TransactionList: React.SFC<TransactionListProps> = ({ newItems, getMore }) => {
     const [items, setItems] = React.useState<Item[]>([]);
 
@@ -56,15 +57,18 @@ export const TransactionList: React.SFC<TransactionListProps> = ({ newItems, get
     }, [newItems]);
 
     const getItemSize = (index: number) => {
-        return isHeader(items[index]) ? headerHeight : itemHeight;
+        const item = items[index];
+
+        if (isHeader(item)) {
+            return headerHeight;
+        }
+
+        return itemHeight;
     };
 
     const VariableSizeListItem: React.SFC<ListChildComponentProps> = ({ index, style, data, isScrolling }) => {
-        if (index === items.length) {
-            return <div style={style}>Loading...</div>;
-        }
-
         const item = items[index];
+
         const result = isHeader(item) ? (
             <TransactionListHeader date={item.date} />
         ) : (
