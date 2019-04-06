@@ -3,6 +3,8 @@ import { Currency } from "src/models/Currency";
 import { Money } from "src/models/Money";
 import { Big } from "big.js";
 import { TransactionCategory } from "src/models/TransactionCategory";
+import { getDate } from "./getDate";
+import { TransactionsDay } from "src/models/TransactionsDay";
 
 export const usd: Currency = {
     code: "USD",
@@ -40,6 +42,21 @@ export const accounts: Money[] = [
         currency: cny,
     },
 ];
+
+export const mockChart = (): TransactionsDay[] => {
+    let result: TransactionsDay[] = [];
+    let lastValue = new Big("12480.00");
+
+    for (let i = 0; i < 30; i++) {
+        const date = getDate(new Date());
+        date.setDate(date.getDate() - i);
+        lastValue = lastValue.add(new Big(Math.floor(Math.random() * 400000 - 200000) / 100));
+
+        result = [...result, { date: date, value: { currency: usd, value: lastValue } }];
+    }
+
+    return result;
+};
 
 const mockCategory = () => {
     const categories: TransactionCategory[] = ["food", "groceries", "transport"];

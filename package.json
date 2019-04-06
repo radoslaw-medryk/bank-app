@@ -23,6 +23,7 @@
         "@types/react-dom": "^16.0.11",
         "@types/react-infinite-scroll-component": "^4.2.3",
         "@types/react-window": "^1.7.1",
+        "@types/victory": "^31.0.14",
         "axios": "^0.18.0",
         "babel-loader": "^8.0.4",
         "babel-plugin-module-resolver": "^3.1.1",
@@ -48,6 +49,7 @@
         "tslint-loader": "^3.5.4",
         "typescript": "^3.1.6",
         "url-loader": "^1.1.2",
+        "victory": "^32.1.0",
         "webpack": "^4.24.0",
         "webpack-command": "^0.4.2"
     },

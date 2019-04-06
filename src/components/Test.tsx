@@ -4,12 +4,13 @@ import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
 import { QuickMenu } from "./QuickMenu";
 import { QuickMenuItem } from "./QuickMenu/Item";
 import { TransactionList } from "./TransactionList";
-import { accounts, mockTransactions, usd, pln, cny } from "src/helpers/mock";
+import { accounts, mockTransactions, usd, pln, cny, mockChart } from "src/helpers/mock";
 import { Transaction } from "src/models/Transaction";
 import { TextField } from "./TextField";
 import { Option } from "./Option";
 import { MoneyField } from "./MoneyField";
 import { styled } from "linaria/react";
+import { Chart } from "./Chart";
 
 const Section = styled.div`
     width: 260px;
@@ -53,7 +54,7 @@ export const Test: React.SFC<TestProps> = ({}) => {
                 <QuickMenuItem icon={"Add"} href="#" />
             </QuickMenu>
             <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
-            <div style={{ height: 50 }} />
+            <Chart data={mockChart()} />
 
             <Section>
                 <TextField placeholder="Enter name" icon="Search" />
