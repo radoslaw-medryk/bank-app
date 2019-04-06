@@ -5,12 +5,14 @@ import { AccountSwitcherAccount } from "./internal/Account";
 import { AccountSwitcherDots } from "./internal/Dots";
 
 const AccountSwitcherBox = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    margin: 0 0 8px;
+
+    display: flex;
+    flex-flow: row nowrap;
 
     & > * {
         flex: 0 0 100%;

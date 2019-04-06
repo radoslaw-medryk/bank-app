@@ -39,4 +39,8 @@ export type IconType =
     | "Bank"
     | "Email"
     | "Contacts"
-    | "ArrowDown";
+    | "ArrowDown"
+    | "Woman1"
+    | "Man1"
+    | "Woman2"
+    | "Man2";

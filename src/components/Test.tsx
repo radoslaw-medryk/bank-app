@@ -52,11 +52,13 @@ export const Test: React.SFC<TestProps> = ({}) => {
                 <QuickMenuItem icon={"Exchange"} href="#" />
                 <QuickMenuItem icon={"Add"} href="#" />
             </QuickMenu>
+            <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
+            <div style={{ height: 50 }} />
 
             <Section>
-                <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
-                <div style={{ height: 50 }} />
                 <TextField placeholder="Enter name" icon="Search" />
+                <div style={{ height: 50 }} />
+                <Option icon="Woman1" title="Zoey Zou" description="" />
                 <div style={{ height: 50 }} />
                 <MoneyField currencies={[usd, pln, cny]} initialCurrency={pln} />
                 <div style={{ height: 50 }} />

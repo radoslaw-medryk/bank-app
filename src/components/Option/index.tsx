@@ -20,16 +20,18 @@ export const OptionBox = styled.div`
 `;
 
 export type OptionProps = {
-    icon: IconType;
+    icon: IconType | React.ReactNode;
     title: string;
     description: string;
     className?: string;
 };
 
 export const Option: React.SFC<OptionProps> = ({ icon, title, description, className }) => {
+    const iconElement = typeof icon === "string" ? <Icon type={icon as IconType} /> : icon;
+
     return (
         <OptionBox className={className}>
-            <Icon type={icon} />
+            {iconElement}
             <OptionRightBox>
                 <OptionTitle>{title}</OptionTitle>
                 <OptionDescription>{description}</OptionDescription>

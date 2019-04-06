@@ -7,4 +7,5 @@ export const OptionRightBox = styled.div`
 
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
 `;

@@ -13,6 +13,10 @@ const MoneyFieldCurrencySelectBox = styled.div`
     & > .currency {
         flex: 0 0 140px;
     }
+
+    svg {
+        fill: var(--gray3);
+    }
 `;
 
 export type MoneyFieldCurrencySelectProps = CurrencyDisplayProps & {
