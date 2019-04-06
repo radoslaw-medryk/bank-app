@@ -1,9 +1,10 @@
 import * as React from "react";
 import { styled } from "linaria/react";
-import { TextFieldLabel } from "./Label";
-import { TextFieldInput } from "./Input";
-import { TextFieldIcon } from "./Icon";
-import { Icon, IconType } from "../Icon";
+import { TextFieldLabel } from "./internal/Label";
+import { TextFieldInput } from "./internal/Input";
+import { TextFieldIcon } from "./internal/Icon";
+import { Icon } from "../Icon";
+import { IconType } from "../Icon/Type";
 
 const TextFieldBox = styled.div`
     height: 40px;

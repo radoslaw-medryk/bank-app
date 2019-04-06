@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MobileMenu } from "src/components/MobileMenu";
 import { MobileMenuItem } from "src/components/MobileMenu/Item";
-import { IconType } from "src/components/Icon";
+import { IconType } from "src/components/Icon/Type";
 
 export type MobileMenuContainerProps = {
     //

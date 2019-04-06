@@ -1,6 +1,7 @@
 import * as React from "react";
-import { IconType, Icon } from "../Icon";
+import { Icon } from "../Icon";
 import { styled } from "linaria/react";
+import { IconType } from "../Icon/Type";
 
 const QuickMenuItemBox = styled.a`
     & > svg {

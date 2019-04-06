@@ -6,18 +6,21 @@ import { TransactionCategory } from "src/models/TransactionCategory";
 
 export const usd: Currency = {
     code: "USD",
+    icon: "USD",
     name: "US Dollar",
     symbol: "$",
     symbolLocation: "left",
 };
 export const pln: Currency = {
     code: "PLN",
+    icon: "PLN",
     name: "Polish złoty",
     symbol: "zł",
     symbolLocation: "right",
 };
 export const cny: Currency = {
     code: "CNY",
+    icon: "CNY",
     name: "Chinese Yuan",
     symbol: "¥",
     symbolLocation: "left",

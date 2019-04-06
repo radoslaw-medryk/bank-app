@@ -2,9 +2,10 @@ import * as React from "react";
 import { styled } from "linaria/react";
 import { Transaction } from "src/models/Transaction";
 import * as moment from "moment";
-import { Icon, IconType } from "../Icon";
+import { Icon } from "../../Icon";
 import { TransactionCategory } from "src/models/TransactionCategory";
 import { formatMoney } from "src/helpers/formatMoney";
+import { IconType } from "src/components/Icon/Type";
 
 export const itemHeight = 24;
 

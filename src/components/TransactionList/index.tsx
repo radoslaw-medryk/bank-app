@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Transaction } from "src/models/Transaction";
-import { TransactionListItem, itemHeight } from "./Item";
-import { TransactionListHeader, headerHeight } from "./Header";
+import { TransactionListItem, itemHeight } from "./internal/Item";
+import { TransactionListHeader, headerHeight } from "./internal/Header";
 import { getDate } from "src/helpers/getDate";
 import { VariableSizeList, ListChildComponentProps } from "react-window";
 

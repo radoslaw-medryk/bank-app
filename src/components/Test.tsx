@@ -4,9 +4,17 @@ import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
 import { QuickMenu } from "./QuickMenu";
 import { QuickMenuItem } from "./QuickMenu/Item";
 import { TransactionList } from "./TransactionList";
-import { accounts, mockTransactions } from "src/helpers/mock";
+import { accounts, mockTransactions, usd, pln, cny } from "src/helpers/mock";
 import { Transaction } from "src/models/Transaction";
 import { TextField } from "./TextField";
+import { Option } from "./Option";
+import { MoneyField } from "./MoneyField";
+import { styled } from "linaria/react";
+
+const Section = styled.div`
+    width: 260px;
+    margin: 0 auto;
+`;
 
 export type TestProps = {
     //
@@ -44,9 +52,21 @@ export const Test: React.SFC<TestProps> = ({}) => {
                 <QuickMenuItem icon={"Exchange"} href="#" />
                 <QuickMenuItem icon={"Add"} href="#" />
             </QuickMenu>
-            <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
-            <div style={{ height: 50 }} />
-            <TextField placeholder="Enter name" icon="Search" />
+
+            <Section>
+                <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
+                <div style={{ height: 50 }} />
+                <TextField placeholder="Enter name" icon="Search" />
+                <div style={{ height: 50 }} />
+                <MoneyField currencies={[usd, pln, cny]} initialCurrency={pln} />
+                <div style={{ height: 50 }} />
+                <Option
+                    icon="Contacts"
+                    title="To a friend"
+                    description="Transfer funds to a friend that already has an account"
+                />
+            </Section>
+
             <div style={{ height: 50 }} />
             <TransactionList newItems={newItems} getMore={getMore} />
             <div style={{ height: 50 }} />

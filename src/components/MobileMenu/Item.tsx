@@ -1,8 +1,9 @@
 import * as React from "react";
 import { MobileMenuItemBox } from "./internal/ItemBox";
-import { IconType, Icon } from "../Icon";
+import { Icon } from "../Icon";
 import classNames from "classnames";
 import { MobileMenuTitle } from "./internal/Title";
+import { IconType } from "../Icon/Type";
 
 export type MobileMenuItemProps = JSX.IntrinsicElements["a"] & {
     icon: IconType;
