@@ -71,7 +71,7 @@ export const Test: React.SFC<TestProps> = ({}) => {
             </Section>
 
             <div style={{ height: 50 }} />
-            <TransactionList newItems={newItems} getMore={getMore} />
+            <TransactionList height={300} newItems={newItems} getMore={getMore} />
             <div style={{ height: 50 }} />
             <MobileMenuContainer />
         </>

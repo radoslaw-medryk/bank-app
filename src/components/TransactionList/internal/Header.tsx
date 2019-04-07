@@ -8,7 +8,7 @@ const TransactionListHeaderBox = styled.div`
     width: 100%;
     height: ${headerHeight}px;
     padding: 10px 10px 0;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--gray3);
 `;

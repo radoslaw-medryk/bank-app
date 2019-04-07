@@ -13,6 +13,11 @@ const axisStyle = {
         size: 5,
         stroke: "var(--gray3)",
     },
+    tickLabels: {
+        fontSize: 11,
+        fill: "var(--gray3)",
+        padding: 2,
+    },
 };
 
 const areaStyle = { data: { fill: "var(--primary)" } };
@@ -26,7 +31,7 @@ export const Chart: React.SFC<ChartProps> = ({ data }) => {
 
     return (
         <ChartBox>
-            <VictoryChart width={320} height={140} padding={{ bottom: 40 }}>
+            <VictoryChart width={320} height={140} padding={{ bottom: 20 }}>
                 <VictoryAxis scale="time" style={axisStyle} />
                 <VictoryArea
                     style={areaStyle}

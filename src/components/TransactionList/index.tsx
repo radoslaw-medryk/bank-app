@@ -43,11 +43,12 @@ const insertHeaders = (lastItem: Item | undefined, newItems: Item[]) => {
 };
 
 export type TransactionListProps = {
+    height: number;
     newItems: Transaction[];
     getMore: () => void;
 };
 
-export const TransactionList: React.SFC<TransactionListProps> = ({ newItems, getMore }) => {
+export const TransactionList: React.SFC<TransactionListProps> = ({ height, newItems, getMore }) => {
     const [items, setItems] = React.useState<Item[]>([]);
 
     React.useEffect(() => {
@@ -89,7 +90,7 @@ export const TransactionList: React.SFC<TransactionListProps> = ({ newItems, get
         >
             {(loader: any) => (
                 <VariableSizeList
-                    height={300}
+                    height={height}
                     ref={loader.ref}
                     onItemsRendered={loader.onItemsRendered}
                     itemCount={items.length}
