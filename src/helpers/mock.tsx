@@ -7,21 +7,21 @@ import { getDate } from "./getDate";
 import { TransactionsDay } from "src/models/TransactionsDay";
 
 export const usd: Currency = {
-    code: "USD",
+    code: "usd",
     icon: "USD",
     name: "US Dollar",
     symbol: "$",
     symbolLocation: "left",
 };
 export const pln: Currency = {
-    code: "PLN",
+    code: "pln",
     icon: "PLN",
     name: "Polish złoty",
     symbol: "zł",
     symbolLocation: "right",
 };
 export const cny: Currency = {
-    code: "CNY",
+    code: "cny",
     icon: "CNY",
     name: "Chinese Yuan",
     symbol: "¥",

@@ -65,7 +65,9 @@ export const TransactionListItem: React.SFC<TransactionListItemProps> = ({ trans
 
     const valueFormated = formatMoney(transaction.value.value);
     const minusSign = valueFormated.isNegative ? "- " : "";
-    const valueString = `${minusSign}${valueFormated.units}.${valueFormated.cents} ${transaction.value.currency.code}`;
+    const valueString = `${minusSign}${valueFormated.units}.${
+        valueFormated.cents
+    } ${transaction.value.currency.code.toUpperCase()}`;
 
     return (
         <TransactionListItemBox>

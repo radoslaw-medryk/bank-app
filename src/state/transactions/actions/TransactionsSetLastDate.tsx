@@ -1,11 +1,11 @@
 import { TransactionsActionType } from "./TransactionsAction";
 
-export type TransactionsSetLastDate = {
-    type: TransactionsActionType.SetLastDate;
-    lastDate: Date | undefined;
+export type TransactionsSetLastId = {
+    type: TransactionsActionType.SetLastId;
+    lastId: number | undefined;
 };
 
-export const transactionsSetLastDate = (lastDate: Date | undefined): TransactionsSetLastDate => ({
-    type: TransactionsActionType.SetLastDate,
-    lastDate: lastDate,
+export const transactionsSetLastId = (lastId: number | undefined): TransactionsSetLastId => ({
+    type: TransactionsActionType.SetLastId,
+    lastId: lastId,
 });

@@ -1,26 +1,36 @@
 import { transactionsFetchStart } from "../actions/TransactionFetchStart";
 import { AppDispatch } from "src/state/types";
 import { uniqueId } from "src/helpers/uniqueId";
-import { mockTransactions } from "src/helpers/mock";
 import { transactionsFetchSuccess } from "../actions/TransactionsFetchSuccess";
 import { AppState } from "src/state/store";
-import { transactionsSetLastDate } from "../actions/TransactionsSetLastDate";
+import { transactionsSetLastId } from "../actions/TransactionsSetLastDate";
+import axios from "axios";
+import { appConfig } from "src/config";
+import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-core-models";
+import { mapApiTransaction } from "src/state/map/mapApiTransaction";
+import { transactionsFetchError } from "../actions/TransactionsFetchError";
 
 export const transactionsFetchThunk = () => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
-        const id = uniqueId();
-        dispatch(transactionsFetchStart(id));
+        const fetchId = uniqueId();
+        dispatch(transactionsFetchStart(fetchId));
 
         const state = getState();
-        const lastDate = state.transactions.lastDate || new Date();
+        const lastId = state.transactions.lastId;
 
-        // TODO [RM]: dummy data so far
-        await new Promise(r => setTimeout(r, 1000));
+        try {
+            const response = await axios.get<ApiSuccessfulResponse<ApiTransaction[]>>("/api/v1/transactions", {
+                baseURL: appConfig.apiBaseUrl,
+                params: { beforeId: lastId },
+            });
 
-        const transactions = mockTransactions(50, lastDate);
-        dispatch(transactionsFetchSuccess(id, transactions));
+            const transactions = response.data.data.map(mapApiTransaction);
+            const newLastId = transactions[transactions.length - 1].id;
 
-        const newLastDate = transactions[transactions.length - 1].date;
-        dispatch(transactionsSetLastDate(newLastDate));
+            dispatch(transactionsSetLastId(newLastId));
+            dispatch(transactionsFetchSuccess(fetchId, transactions));
+        } catch (e) {
+            dispatch(transactionsFetchError(fetchId, e.toString()));
+        }
     };
 };

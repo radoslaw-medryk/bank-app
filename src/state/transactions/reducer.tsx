@@ -4,7 +4,7 @@ import { TransactionsActionType } from "./actions/TransactionsAction";
 import { TransactionsFetchStart } from "./actions/TransactionFetchStart";
 import { TransactionsFetchSuccess } from "./actions/TransactionsFetchSuccess";
 import { TransactionsFetchError } from "./actions/TransactionsFetchError";
-import { TransactionsSetLastDate } from "./actions/TransactionsSetLastDate";
+import { TransactionsSetLastId } from "./actions/TransactionsSetLastDate";
 import { TransactionsClear } from "./actions/TransactionsClear";
 
 export const transactionsReducer = (
@@ -21,8 +21,8 @@ export const transactionsReducer = (
         case TransactionsActionType.FetchError:
             return fetchError(state, action);
 
-        case TransactionsActionType.SetLastDate:
-            return setLastDate(state, action);
+        case TransactionsActionType.SetLastId:
+            return setLastId(state, action);
 
         case TransactionsActionType.Clear:
             return clear(state, action);
@@ -37,9 +37,9 @@ const fetchStart = (state: TransactionsState, action: TransactionsFetchStart): T
         status: "loading",
     };
 
-    const newState = {
+    const newState: TransactionsState = {
         ...state,
-        transactionsFetches: [...state.fetches, newFetchState],
+        fetches: [...state.fetches, newFetchState],
     };
     return newState;
 };
@@ -57,9 +57,9 @@ const fetchSuccess = (state: TransactionsState, action: TransactionsFetchSuccess
         };
     };
 
-    const newState = {
+    const newState: TransactionsState = {
         ...state,
-        transactionsFetches: [...state.fetches.map(q => updateFetchState(q))],
+        fetches: [...state.fetches.map(q => updateFetchState(q))],
     };
     return newState;
 };
@@ -77,27 +77,27 @@ const fetchError = (state: TransactionsState, action: TransactionsFetchError): T
         };
     };
 
-    const newState = {
+    const newState: TransactionsState = {
         ...state,
-        transactionsFetches: [...state.fetches.map(q => updateFetchState(q))],
+        fetches: [...state.fetches.map(q => updateFetchState(q))],
     };
     return newState;
 };
 
-const setLastDate = (state: TransactionsState, action: TransactionsSetLastDate): TransactionsState => {
-    const newState = {
+const setLastId = (state: TransactionsState, action: TransactionsSetLastId): TransactionsState => {
+    const newState: TransactionsState = {
         ...state,
-        lastDate: action.lastDate,
+        lastId: action.lastId,
     };
 
     return newState;
 };
 
 const clear = (state: TransactionsState, action: TransactionsClear): TransactionsState => {
-    const newState = {
+    const newState: TransactionsState = {
         ...state,
-        transactionFetches: [],
-        lastDate: undefined,
+        fetches: [],
+        lastId: undefined,
     };
 
     return newState;

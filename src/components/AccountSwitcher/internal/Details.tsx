@@ -15,7 +15,7 @@ export const AccountSwitcherDetails: React.SFC<AccountSwitcherDetailsProps> = ({
     const { code, name } = currency;
     return (
         <AccountSwitcherDetailsBox>
-            {code} • {name}
+            {code.toUpperCase()} • {name}
         </AccountSwitcherDetailsBox>
     );
 };

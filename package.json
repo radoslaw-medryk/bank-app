@@ -16,6 +16,7 @@
         "@babel/preset-env": "^7.1.0",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.1.0",
+        "@radoslaw-medryk/bank-core-models": "file:../core-models",
         "@radoslaw-medryk/tslint": "^0.1.5",
         "@types/big.js": "^4.0.5",
         "@types/classnames": "^2.2.6",

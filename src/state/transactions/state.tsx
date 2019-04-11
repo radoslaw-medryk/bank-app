@@ -8,10 +8,10 @@ export type TransactionsFetchState = FetchState<TransactionsFetchStateData, Tran
 
 export type TransactionsState = {
     fetches: TransactionsFetchState[];
-    lastDate: Date | undefined;
+    lastId: number | undefined;
 };
 
 export const initialTransactionsState: TransactionsState = {
     fetches: [],
-    lastDate: undefined,
+    lastId: undefined,
 };

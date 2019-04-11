@@ -8,5 +8,12 @@ export type CurrencyDisplayProps = {
 };
 
 export const CurrencyDisplay: React.SFC<CurrencyDisplayProps> = ({ currency, className }) => {
-    return <Option icon={currency.icon} title={currency.code} description={currency.name} className={className} />;
+    return (
+        <Option
+            icon={currency.icon}
+            title={currency.code.toUpperCase()}
+            description={currency.name}
+            className={className}
+        />
+    );
 };
