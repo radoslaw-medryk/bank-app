@@ -1,4 +1,4 @@
-import { ApiCurrencyCode } from "@radoslaw-medryk/bank-core-models";
+import { ApiCurrencyCode } from "@radoslaw-medryk/bank-core-shared";
 import { Currency } from "src/models/Currency";
 import { usd, pln, cny } from "src/helpers/mock";
 

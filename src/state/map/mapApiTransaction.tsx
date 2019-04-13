@@ -1,4 +1,4 @@
-import { ApiTransaction } from "@radoslaw-medryk/bank-core-models";
+import { ApiTransaction } from "@radoslaw-medryk/bank-core-shared";
 import { Transaction } from "src/models/Transaction";
 import { mapApiMoney } from "./mapApiMoney";
 import { mapDate } from "./mapDate";

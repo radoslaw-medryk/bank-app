@@ -6,7 +6,7 @@ import { AppState } from "src/state/store";
 import { transactionsSetLastId } from "../actions/TransactionsSetLastDate";
 import axios from "axios";
 import { appConfig } from "src/config";
-import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-core-models";
+import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-core-shared";
 import { mapApiTransaction } from "src/state/map/mapApiTransaction";
 import { transactionsFetchError } from "../actions/TransactionsFetchError";
 

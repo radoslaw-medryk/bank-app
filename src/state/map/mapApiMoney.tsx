@@ -1,4 +1,4 @@
-import { ApiMoney } from "@radoslaw-medryk/bank-core-models";
+import { ApiMoney } from "@radoslaw-medryk/bank-core-shared";
 import { Money } from "src/models/Money";
 import { mapApiCurrency } from "./mapCurrency";
 import { mapBig } from "./mapBig";
