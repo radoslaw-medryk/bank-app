@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Page } from "./Page";
+import { PageBox } from "./PageBox";
 import { QuickMenu } from "src/components/QuickMenu";
 import { QuickMenuItem } from "src/components/QuickMenu/Item";
 import { AccountSwitcher } from "src/components/AccountSwitcher";
@@ -8,14 +8,11 @@ import { accounts, mockChart } from "src/helpers/mock";
 import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
 import { mobileMenuHeight } from "src/components/MobileMenu";
 import { TransactionListContainer } from "src/containers/TransactionListContainer";
+import { PageProps } from "./PageProps";
 
 const initialIndex = 1;
 
-export type AccountsPageProps = {
-    //
-};
-
-export const AccountsPage: React.SFC<AccountsPageProps> = ({}) => {
+export const AccountsPage: React.SFC<PageProps> = ({ match }) => {
     const [transactionListHeight, setTransactionListHeight] = React.useState(100);
 
     const refCallback = React.useCallback((element: HTMLDivElement | null) => {
@@ -26,17 +23,17 @@ export const AccountsPage: React.SFC<AccountsPageProps> = ({}) => {
     }, []);
 
     return (
-        <Page>
+        <PageBox>
             <QuickMenu>
-                <QuickMenuItem icon={"Accounts"} href="#" />
-                <QuickMenuItem icon={"Exchange"} href="#" />
-                <QuickMenuItem icon={"Add"} href="#" />
+                <QuickMenuItem icon={"Accounts"} to={`${match.url}/currencies`} />
+                <QuickMenuItem icon={"Exchange"} to={`${match.url}/exchange`} />
+                <QuickMenuItem icon={"Add"} to={`${match.url}/add`} />
             </QuickMenu>
             <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
             <Chart data={mockChart()} />
             <div ref={refCallback} />
             <TransactionListContainer height={transactionListHeight} />
             <MobileMenuContainer />
-        </Page>
+        </PageBox>
     );
 };

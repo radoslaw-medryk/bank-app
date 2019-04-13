@@ -4,7 +4,7 @@
     "scripts": {
         "build": "mkdir -p dist && rm -r dist && npm run prettier-check && tsc && wp --mode production",
         "deploy": "npm run build && npx firebase deploy --project bank-proj",
-        "start": "webpack-serve",
+        "start": "webpack-dev-server",
         "lint:css": "stylelint src/**/*.tsx",
         "prettier": "prettier ./src/**/*.{js,ts,tsx,json,html} --write",
         "prettier-check": "prettier ./src/**/*.{js,ts,tsx,json,html} --check"
@@ -25,6 +25,8 @@
         "@types/react-dom": "^16.0.11",
         "@types/react-infinite-scroll-component": "^4.2.3",
         "@types/react-redux": "^7.0.6",
+        "@types/react-router": "^4.4.5",
+        "@types/react-router-dom": "^4.3.2",
         "@types/react-window": "^1.7.1",
         "@types/victory": "^31.0.14",
         "axios": "^0.18.0",
@@ -42,6 +44,8 @@
         "react": "^16.7.0-alpha.2",
         "react-dom": "^16.7.0-alpha.2",
         "react-redux": "^6.0.1",
+        "react-router": "^5.0.0",
+        "react-router-dom": "^5.0.0",
         "react-svg-loader": "^2.1.0",
         "react-window": "^1.7.1",
         "react-window-infinite-loader": "^1.0.3",
@@ -56,14 +60,14 @@
         "typescript": "^3.1.6",
         "url-loader": "^1.1.2",
         "victory": "^32.1.0",
-        "webpack": "^4.24.0",
-        "webpack-command": "^0.4.2"
+        "webpack": "^4.24.0"
     },
     "devDependencies": {
         "firebase-tools": "^6.5.0",
         "prettier": "^1.16.4",
         "style-loader": "^0.23.1",
         "tslint-config-prettier": "^1.18.0",
-        "webpack-serve": "^2.0.2"
+        "webpack-cli": "^3.3.0",
+        "webpack-dev-server": "^3.3.1"
     }
 }

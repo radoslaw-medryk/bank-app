@@ -1,23 +1,40 @@
 import * as React from "react";
-import { MobileMenuItemBox } from "./internal/ItemBox";
 import { Icon } from "../Icon";
-import classNames from "classnames";
 import { MobileMenuTitle } from "./internal/Title";
 import { IconType } from "../Icon/Type";
+import { styled } from "linaria/react";
+import { NavLink, NavLinkProps } from "react-router-dom";
 
-export type MobileMenuItemProps = JSX.IntrinsicElements["a"] & {
+const MobileMenuItemBox = styled(NavLink)`
+    text-decoration: none;
+    padding: 10px 0 6px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--gray1);
+    svg {
+        fill: var(--gray1);
+    }
+
+    &.active {
+        color: var(--primary);
+        svg {
+            fill: var(--primary);
+        }
+    }
+`;
+
+export type MobileMenuItemProps = NavLinkProps & {
     icon: IconType;
     title: string;
-    isActive?: boolean;
 };
 
-export const MobileMenuItem: React.SFC<MobileMenuItemProps> = ({ icon, title, isActive, ...rest }) => {
-    const className = classNames({
-        active: isActive,
-    });
-
+export const MobileMenuItem: React.SFC<MobileMenuItemProps> = ({ icon, title, ...rest }) => {
     return (
-        <MobileMenuItemBox {...rest} className={className}>
+        <MobileMenuItemBox {...rest}>
             <Icon type={icon} />
             <MobileMenuTitle>{title}</MobileMenuTitle>
         </MobileMenuItemBox>

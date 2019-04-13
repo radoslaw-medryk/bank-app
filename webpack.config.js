@@ -3,15 +3,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const StylelintWebpackPlugin = require("stylelint-webpack-plugin");
 
 module.exports = env => {
-    const isProduction = env.mode === "production";
-    env.mode = isProduction ? "production" : "development";
+    const isProduction = !!env && env.mode === "production";
 
     return {
-        mode: env.mode,
+        mode: isProduction ? "production" : "development",
         entry: "./src/index.tsx",
         output: {
             filename: "[name].js",
             path: __dirname + "/dist",
+            publicPath: "/",
         },
 
         devtool: "source-map",
@@ -76,6 +76,10 @@ module.exports = env => {
             splitChunks: {
                 chunks: "all",
             },
+        },
+
+        devServer: {
+            historyApiFallback: true,
         },
 
         plugins: [
