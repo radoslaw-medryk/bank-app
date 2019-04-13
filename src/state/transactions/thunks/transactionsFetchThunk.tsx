@@ -25,10 +25,12 @@ export const transactionsFetchThunk = () => {
             });
 
             const transactions = response.data.data.map(mapApiTransaction);
-            const newLastId = transactions[transactions.length - 1].id;
-
-            dispatch(transactionsSetLastId(newLastId));
             dispatch(transactionsFetchSuccess(fetchId, transactions));
+
+            if (transactions.length > 0) {
+                const newLastId = transactions[transactions.length - 1].id;
+                dispatch(transactionsSetLastId(newLastId));
+            }
         } catch (e) {
             dispatch(transactionsFetchError(fetchId, e.toString()));
         }

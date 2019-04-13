@@ -52,6 +52,10 @@ export const TransactionList: React.SFC<TransactionListProps> = ({ height, newIt
     const [items, setItems] = React.useState<Item[]>([]);
 
     React.useEffect(() => {
+        getMore();
+    }, []);
+
+    React.useEffect(() => {
         const lastItem = items.length > 0 ? items[items.length - 1] : undefined;
         const newItemsWithHeaders = insertHeaders(lastItem, newItems);
         setItems([...items, ...newItemsWithHeaders]);

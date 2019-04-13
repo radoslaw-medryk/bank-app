@@ -1,3 +1,3 @@
 export const appConfig = {
-    apiBaseUrl: "http://localhost:5000",
+    apiBaseUrl: "https://bank-core.herokuapp.com",
 };
