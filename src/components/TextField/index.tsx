@@ -22,9 +22,18 @@ export type TextFieldProps = {
     iconOnClick?: () => void;
     value?: string;
     onChange?: (newValue: string) => void;
+    className?: string;
 };
 
-export const TextField: React.SFC<TextFieldProps> = ({ placeholder, label, icon, iconOnClick, value, onChange }) => {
+export const TextField: React.SFC<TextFieldProps> = ({
+    placeholder,
+    label,
+    icon,
+    iconOnClick,
+    value,
+    onChange,
+    className,
+}) => {
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!onChange) {
             return;
@@ -43,7 +52,7 @@ export const TextField: React.SFC<TextFieldProps> = ({ placeholder, label, icon,
     );
 
     return (
-        <TextFieldBox>
+        <TextFieldBox className={className}>
             <TextFieldLabel>{label}</TextFieldLabel>
             <TextFieldInput placeholder={placeholder} value={value} onChange={onInputChange} />
             {iconElement}

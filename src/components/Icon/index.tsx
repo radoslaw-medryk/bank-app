@@ -3,6 +3,7 @@ import { IconType } from "./Type";
 
 export type IconProps = {
     type: IconType;
+    className?: string;
 };
 
 export const Icon: React.SFC<IconProps> = ({ type, ...rest }) => {

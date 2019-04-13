@@ -43,4 +43,7 @@ export type IconType =
     | "Woman1"
     | "Man1"
     | "Woman2"
-    | "Man2";
+    | "Man2"
+    | "Logo"
+    | "Login"
+    | "Password";
