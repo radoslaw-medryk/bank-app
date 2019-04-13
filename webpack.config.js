@@ -2,8 +2,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const StylelintWebpackPlugin = require("stylelint-webpack-plugin");
 
-module.exports = env => {
-    const isProduction = !!env && env.mode === "production";
+module.exports = (env, argv) => {
+    const isProduction = !!argv && argv.mode === "production";
 
     return {
         mode: isProduction ? "production" : "development",
