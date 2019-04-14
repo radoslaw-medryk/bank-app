@@ -8,6 +8,7 @@ import { IconType } from "../Icon/Type";
 
 const TextFieldBox = styled.div`
     height: 40px;
+    width: 100%;
     /* border-bottom: 1px solid var(--gray2); */
 
     display: flex;

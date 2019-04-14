@@ -7,18 +7,19 @@ import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { LoginRegisterSection, LoginRegisterSwitch } from "./LoginRegisterPageBase";
 
-export const LoginPage: React.SFC<PageProps> = ({}) => {
+export const RegisterPage: React.SFC<PageProps> = ({}) => {
     return (
         <PageBox>
             <LoginRegisterSection>
                 <Icon type="Logo" className="logo" />
                 <TextField icon="Login" className="field first" placeholder="Email" />
-                <TextField icon="Password" className="field" placeholder="Password" />
+                <TextField icon="Password" className="field" placeholder="New password" />
+                <TextField icon="Password" className="field" placeholder="Confirm password" />
                 <div className="spacer" />
                 <LoginRegisterSwitch>
-                    Don’t have an account? <Link to="/register">Create one here</Link>
+                    Already got an account? <Link to="/login">Log in instead</Link>
                 </LoginRegisterSwitch>
-                <Button className="button">Log in</Button>
+                <Button className="button">Create account</Button>
             </LoginRegisterSection>
         </PageBox>
     );

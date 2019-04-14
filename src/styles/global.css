@@ -18,3 +18,15 @@ body {
     bottom: 0;
     left: 0;
 }
+
+a:link,
+a:visited {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: var(--primary-dark);
+    text-decoration: none;
+}

@@ -8,6 +8,7 @@ import { CardsPage } from "./pages/CardsPage";
 import { MorePage } from "./pages/MorePage";
 import { MissingPage } from "./pages/MissingPage";
 import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
 
 export type ReactAppProps = {
     //
@@ -23,6 +24,7 @@ export const ReactApp: React.SFC<ReactAppProps> = () => (
                 <Route path="/cards" component={CardsPage} />
                 <Route path="/more" component={MorePage} />
                 <Route path="/login" component={LoginPage} />
+                <Route path="/register" component={RegisterPage} />
                 <Route path="/missing" component={MissingPage} />
                 <Route path="/" render={() => <Redirect to="/missing" />} />
             </Switch>
