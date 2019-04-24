@@ -1,5 +1,5 @@
-import { Section } from "src/components/Section";
 import { styled } from "linaria/react";
+import { Section } from "../Section";
 
 export const LoginRegisterSection = styled(Section)`
     height: 100%;
@@ -25,8 +25,4 @@ export const LoginRegisterSection = styled(Section)`
     .button {
         margin: 20px 0 40px;
     }
-`;
-
-export const LoginRegisterSwitch = styled.p`
-    font-size: 12px;
 `;

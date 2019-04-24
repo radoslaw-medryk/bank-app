@@ -7,7 +7,7 @@ import { transactionsSetLastId } from "../actions/TransactionsSetLastDate";
 import axios from "axios";
 import { appConfig } from "src/config";
 import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-core-shared";
-import { mapApiTransaction } from "src/state/map/mapApiTransaction";
+import { mapTransaction } from "src/state/map/mapTransaction";
 import { transactionsFetchError } from "../actions/TransactionsFetchError";
 
 export const transactionsFetchThunk = () => {
@@ -19,12 +19,13 @@ export const transactionsFetchThunk = () => {
         const lastId = state.transactions.lastId;
 
         try {
+            // TODO [RM]: adjust to new APIs
             const response = await axios.get<ApiSuccessfulResponse<ApiTransaction[]>>("/api/v1/transactions", {
                 baseURL: appConfig.apiBaseUrl,
                 params: { beforeId: lastId },
             });
 
-            const transactions = response.data.data.map(mapApiTransaction);
+            const transactions = response.data.data.map(mapTransaction);
             dispatch(transactionsFetchSuccess(fetchId, transactions));
 
             if (transactions.length > 0) {

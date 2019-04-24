@@ -9,6 +9,7 @@ import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
 import { mobileMenuHeight } from "src/components/MobileMenu";
 import { TransactionListContainer } from "src/containers/TransactionListContainer";
 import { PageProps } from "./PageProps";
+import { AuthRedirect } from "src/containers/AuthRedirect";
 
 const initialIndex = 1;
 
@@ -24,6 +25,7 @@ export const AccountsPage: React.SFC<PageProps> = ({ match }) => {
 
     return (
         <PageBox>
+            <AuthRedirect to="/login" when="not-logged-in" />
             <QuickMenu>
                 <QuickMenuItem icon={"Accounts"} to={`${match.url}/currencies`} />
                 <QuickMenuItem icon={"Exchange"} to={`${match.url}/exchange`} />

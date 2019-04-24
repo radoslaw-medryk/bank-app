@@ -14,9 +14,16 @@ const MobileMenuItemBox = styled(NavLink)`
     justify-content: center;
     align-items: center;
 
-    color: var(--gray1);
     svg {
         fill: var(--gray1);
+    }
+
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+        color: var(--gray1);
     }
 
     &.active {
