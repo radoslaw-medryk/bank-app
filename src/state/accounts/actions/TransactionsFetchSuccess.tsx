@@ -1,15 +1,15 @@
 import { TransactionsFetchStateData } from "../state";
-import { TransactionsActionType } from "./TransactionsAction";
+import { AccountsActionType } from "./AccountsAction";
 import { FetchId } from "src/state/FetchState";
 
 export type TransactionsFetchSuccess = {
-    type: TransactionsActionType.FetchSuccess;
+    type: AccountsActionType.TransactionsFetchSuccess;
     id: FetchId;
     data: TransactionsFetchStateData;
 };
 
 export const transactionsFetchSuccess = (id: FetchId, data: TransactionsFetchStateData): TransactionsFetchSuccess => ({
-    type: TransactionsActionType.FetchSuccess,
+    type: AccountsActionType.TransactionsFetchSuccess,
     id: id,
     data: data,
 });

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { styled } from "linaria/react";
-import { Money } from "src/models/Money";
 import { AccountSwitcherAccount } from "./internal/Account";
 import { AccountSwitcherDots } from "./internal/Dots";
+import { Account } from "src/models/Account";
 
 const AccountSwitcherBox = styled.div`
     overflow-x: scroll;
@@ -23,7 +23,7 @@ const AccountSwitcherBox = styled.div`
 export type OnSelectedAccountChangedFunc = (index: number) => void;
 
 export type AccountSwitcherProps = {
-    accounts: Money[];
+    accounts: Account[];
     initialIndex?: number;
     onSelectedAccountChanged?: OnSelectedAccountChangedFunc;
 };
@@ -64,7 +64,7 @@ export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({
         <div>
             <AccountSwitcherBox ref={boxRef} onScroll={onScroll}>
                 {accounts.map(q => (
-                    <AccountSwitcherAccount key={q.currency.symbol} balance={q} />
+                    <AccountSwitcherAccount key={q.id} balance={q.balance} />
                 ))}
             </AccountSwitcherBox>
             <AccountSwitcherDots total={elementCount} index={index} />

@@ -8,6 +8,7 @@ import { appConfig } from "src/config";
 import { mapAuthData } from "src/state/map/mapAuthData";
 import { authLoginFetchSuccess } from "../actions/AuthLoginFetchSuccess";
 import { authLoginFetchError } from "../actions/AuthLoginFetchError";
+import { accountsFetchThunk } from "src/state/accounts/thunks/accountsFetchThunk";
 
 export const authLoginThunk = (email: string, password: string) => {
     return async (dispatch: AppDispatch) => {
@@ -31,6 +32,8 @@ export const authLoginThunk = (email: string, password: string) => {
             const authData = mapAuthData(response.data.data);
 
             dispatch(authLoginFetchSuccess(fetchId, authData));
+
+            dispatch(accountsFetchThunk());
         } catch (e) {
             dispatch(authLoginFetchError(fetchId, e.toString()));
         }

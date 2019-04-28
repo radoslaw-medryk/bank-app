@@ -1,7 +1,8 @@
 import { IconType } from "src/components/Icon/Type";
+import { CurrencyCode } from "./CurrencyCode";
 
 export type Currency = {
-    code: string;
+    code: CurrencyCode;
     icon: IconType;
     name: string;
     symbol: string;

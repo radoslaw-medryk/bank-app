@@ -2,16 +2,14 @@ import * as React from "react";
 import { PageBox } from "./PageBox";
 import { QuickMenu } from "src/components/QuickMenu";
 import { QuickMenuItem } from "src/components/QuickMenu/Item";
-import { AccountSwitcher } from "src/components/AccountSwitcher";
 import { Chart } from "src/components/Chart";
-import { accounts, mockChart } from "src/helpers/mock";
+import { mockChart } from "src/helpers/mock";
 import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
 import { mobileMenuHeight } from "src/components/MobileMenu";
 import { TransactionListContainer } from "src/containers/TransactionListContainer";
 import { PageProps } from "./PageProps";
 import { AuthRedirect } from "src/containers/AuthRedirect";
-
-const initialIndex = 1;
+import { AccountSwitcherContainer } from "src/containers/AccountSwitcherContainer";
 
 export const AccountsPage: React.SFC<PageProps> = ({ match }) => {
     const [transactionListHeight, setTransactionListHeight] = React.useState(100);
@@ -31,7 +29,7 @@ export const AccountsPage: React.SFC<PageProps> = ({ match }) => {
                 <QuickMenuItem icon={"Exchange"} to={`${match.url}/exchange`} />
                 <QuickMenuItem icon={"Add"} to={`${match.url}/add`} />
             </QuickMenu>
-            <AccountSwitcher accounts={accounts} initialIndex={initialIndex} />
+            <AccountSwitcherContainer />
             <Chart data={mockChart()} />
             <div ref={refCallback} />
             <TransactionListContainer height={transactionListHeight} />
