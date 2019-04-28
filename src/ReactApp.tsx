@@ -9,6 +9,7 @@ import { MorePage } from "./pages/MorePage";
 import { MissingPage } from "./pages/MissingPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { TokenPersistContainer } from "./containers/TokenPersistContainer";
 
 export type ReactAppProps = {
     //
@@ -17,6 +18,7 @@ export type ReactAppProps = {
 export const ReactApp: React.SFC<ReactAppProps> = () => (
     <BrowserRouter>
         <Provider store={store}>
+            <TokenPersistContainer />
             <Switch>
                 <Route exact path="/" render={() => <Redirect to="/accounts" />} />
                 <Route path="/accounts" component={AccountsPage} />

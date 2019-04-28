@@ -9,7 +9,6 @@ import { appConfig } from "src/config";
 import { mapAccount } from "src/state/map/mapAccount";
 import { accountsFetchSuccess } from "../actions/AccountsFetchSuccess";
 import { accountsFetchError } from "../actions/AccountsFetchError";
-import { getToken } from "src/state/helpers/getToken";
 import { accountSetCurrent } from "../actions/AccountSetCurrent";
 
 export const accountsFetchThunk = () => {
@@ -18,7 +17,7 @@ export const accountsFetchThunk = () => {
         dispatch(accountsFetchStart(fetchId));
 
         const state = getState();
-        const token = getToken(state);
+        const token = state.auth.token;
         const currentAccountId = state.accounts.currentAccountId;
 
         if (!token) {

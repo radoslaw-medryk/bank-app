@@ -9,7 +9,6 @@ import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-cor
 import { mapTransaction } from "src/state/map/mapTransaction";
 import { transactionsFetchError } from "../actions/TransactionsFetchError";
 import { getTransactionsLowestId } from "src/state/helpers/getTransactionsLowestId";
-import { getToken } from "src/state/helpers/getToken";
 
 export const transactionsFetchThunk = () => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
@@ -25,7 +24,7 @@ export const transactionsFetchThunk = () => {
             return;
         }
 
-        const token = getToken(state);
+        const token = state.auth.token;
         const beforeId = getTransactionsLowestId(state, currentAccountId);
 
         const fetchId = uniqueId();

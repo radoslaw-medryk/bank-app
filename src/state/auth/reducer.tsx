@@ -4,6 +4,10 @@ import { AuthLoginFetchStart } from "./actions/AuthLoginFetchStart";
 import { AuthActionType } from "./actions/AuthAction";
 import { AuthLoginFetchSuccess } from "./actions/AuthLoginFetchSuccess";
 import { AuthLoginFetchError } from "./actions/AuthLoginFetchError";
+import { AuthRegisterFetchStart } from "./actions/AuthRegisterFetchStart";
+import { AuthRegisterFetchSuccess } from "./actions/AuthRegisterFetchSuccess";
+import { AuthRegisterFetchError } from "./actions/AuthRegisterFetchError";
+import { AuthSetToken } from "./actions/AuthSetToken";
 
 export const authReducer = (state: AuthState = initialAuthState, action: AppAction): AuthState => {
     switch (action.type) {
@@ -15,6 +19,18 @@ export const authReducer = (state: AuthState = initialAuthState, action: AppActi
 
         case AuthActionType.LoginFetchError:
             return loginFetchError(state, action);
+
+        case AuthActionType.SetToken:
+            return setToken(state, action);
+
+        case AuthActionType.RegisterFetchStart:
+            return registerFetchStart(state, action);
+
+        case AuthActionType.RegisterFetchSuccess:
+            return registerFetchSuccess(state, action);
+
+        case AuthActionType.RegisterFetchError:
+            return registerFetchError(state, action);
     }
 
     return state;
@@ -68,6 +84,68 @@ const loginFetchError = (state: AuthState, action: AuthLoginFetchError): AuthSta
             id: action.id,
             status: "error",
             error: action.error,
+        },
+    };
+    return newState;
+};
+
+const setToken = (state: AuthState, action: AuthSetToken): AuthState => {
+    const newState: AuthState = {
+        ...state,
+        token: action.token,
+        tokenExpiresAt: action.expiresAt,
+    };
+
+    return newState;
+};
+
+const registerFetchStart = (state: AuthState, action: AuthRegisterFetchStart): AuthState => {
+    const currentFetch = state.registerFetch;
+
+    if (currentFetch && currentFetch.status === "loading") {
+        return state;
+    }
+
+    const newState: AuthState = {
+        ...state,
+        registerFetch: {
+            id: action.id,
+            status: "loading",
+        },
+    };
+    return newState;
+};
+
+const registerFetchSuccess = (state: AuthState, action: AuthRegisterFetchSuccess): AuthState => {
+    const currentFetch = state.registerFetch;
+
+    if (!currentFetch || currentFetch.status !== "loading" || currentFetch.id !== action.id) {
+        return state;
+    }
+
+    const newState: AuthState = {
+        ...state,
+        registerFetch: {
+            id: action.id,
+            status: "success",
+            data: action.data,
+        },
+    };
+    return newState;
+};
+
+const registerFetchError = (state: AuthState, action: AuthRegisterFetchError): AuthState => {
+    const currentFetch = state.registerFetch;
+
+    if (currentFetch && currentFetch.status === "loading") {
+        return state;
+    }
+
+    const newState: AuthState = {
+        ...state,
+        registerFetch: {
+            id: action.id,
+            status: "loading",
         },
     };
     return newState;
