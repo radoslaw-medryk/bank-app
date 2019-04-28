@@ -3,6 +3,7 @@ import { TransactionListItem, itemHeight } from "./internal/Item";
 import { TransactionListHeader, headerHeight } from "./internal/Header";
 import { VariableSizeList, ListChildComponentProps } from "react-window";
 import { TransactionListEntry } from "./Entry";
+import { TransactionListNoOperations } from "./internal/NoOperations";
 
 const InfiniteLoader = require("react-window-infinite-loader").default;
 
@@ -16,8 +17,12 @@ export type TransactionListProps = {
 
 export const TransactionList: React.SFC<TransactionListProps> = ({ height, accountId, entries, getMore }) => {
     React.useEffect(() => {
-        getMore(); // TODO [RM]: call getMore() initially and when entries changed from non-empty to empty
+        getMore();
     }, [accountId]);
+
+    if (entries.length === 0) {
+        return <TransactionListNoOperations height={height} />;
+    }
 
     const getItemSize = (index: number) => {
         const entry = entries[index];

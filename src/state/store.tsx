@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { accountsReducer } from "./accounts/reducer";
 import { uiReducer } from "./ui/reducer";
 import { authReducer } from "./auth/reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = combineReducers({
     accounts: accountsReducer,
@@ -10,7 +11,7 @@ const reducers = combineReducers({
     auth: authReducer,
 });
 
-export const store = createStore(reducers, applyMiddleware(thunk));
+export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 // TODO [RM]: TEMP, DEBUG ONLY
 store.subscribe(() => {

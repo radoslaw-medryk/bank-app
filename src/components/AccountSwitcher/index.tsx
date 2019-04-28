@@ -24,26 +24,30 @@ export type OnSelectedAccountChangedFunc = (index: number) => void;
 
 export type AccountSwitcherProps = {
     accounts: Account[];
-    initialIndex?: number;
+    index: number;
     onSelectedAccountChanged?: OnSelectedAccountChangedFunc;
 };
 
-export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({
-    accounts,
-    initialIndex,
-    onSelectedAccountChanged,
-}) => {
+export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({ accounts, index, onSelectedAccountChanged }) => {
     const elementCount = accounts.length;
 
-    const [index, setIndex] = React.useState(initialIndex || 0);
     const boxRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
         if (boxRef.current) {
             const scrollWidth = boxRef.current.scrollWidth;
-            const newScrollLeft = (scrollWidth / elementCount) * (initialIndex || 0);
+            const scrollLeft = boxRef.current.scrollLeft;
+            const elementStep = scrollWidth / elementCount;
+
+            if (scrollLeft % elementStep > 5) {
+                // If current scrollLeft is not set at element (with error of 5px) we don't enforce scroll on DOM.
+                // That is because user is currently actively scrolling and we don't want to disturb this.
+                return;
+            }
+
+            const newScrollLeft = elementStep * index;
             boxRef.current.scrollLeft = newScrollLeft;
         }
-    }, []);
+    }, [index]);
 
     const onScroll = () => {
         if (!boxRef.current) {
@@ -55,7 +59,6 @@ export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({
 
         const newIndex = Math.round(scrollLeft / (scrollWidth / elementCount));
         if (newIndex !== index) {
-            setIndex(newIndex);
             onSelectedAccountChanged && onSelectedAccountChanged(newIndex);
         }
     };
