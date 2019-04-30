@@ -1,24 +1,21 @@
 import * as React from "react";
 import { styled } from "linaria/react";
-import { TextFieldLabel } from "./internal/Label";
 import { TextFieldInput } from "./internal/Input";
 import { TextFieldIcon } from "./internal/Icon";
 import { Icon } from "../Icon";
 import { IconType } from "../Icon/Type";
+import { TextFieldHint } from "./internal/Hint";
+import { TextFieldWrapper } from "./internal/Wrapper";
+import { TextFieldMode } from "./internal/Mode";
 
 const TextFieldBox = styled.div`
-    height: 40px;
     width: 100%;
-    /* border-bottom: 1px solid var(--gray2); */
-
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
 `;
 
 export type TextFieldProps = {
     placeholder?: string;
-    label?: string;
+    hint?: string;
+    mode?: TextFieldMode;
     icon?: IconType;
     iconOnClick?: () => void;
     value?: string;
@@ -28,13 +25,16 @@ export type TextFieldProps = {
 
 export const TextField: React.SFC<TextFieldProps> = ({
     placeholder,
-    label,
+    hint,
+    mode,
     icon,
     iconOnClick,
     value,
     onChange,
     className,
 }) => {
+    mode = mode || "default";
+
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!onChange) {
             return;
@@ -54,9 +54,11 @@ export const TextField: React.SFC<TextFieldProps> = ({
 
     return (
         <TextFieldBox className={className}>
-            <TextFieldLabel>{label}</TextFieldLabel>
-            <TextFieldInput placeholder={placeholder} value={value} onChange={onInputChange} />
-            {iconElement}
+            <TextFieldWrapper mode={mode}>
+                <TextFieldInput placeholder={placeholder} value={value} onChange={onInputChange} />
+                {iconElement}
+            </TextFieldWrapper>
+            <TextFieldHint mode={mode}>{hint}</TextFieldHint>
         </TextFieldBox>
     );
 };
