@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "linaria/react";
+import { ButtonLoader } from "./internal/Loader";
 
 const ButtonBox = styled.a`
     background: var(--primary);
@@ -24,9 +25,9 @@ const ButtonBox = styled.a`
 `;
 
 export type ButtonProps = JSX.IntrinsicElements["a"] & {
-    //
+    isLoading?: boolean;
 };
 
-export const Button: React.SFC<ButtonProps> = ({ ...props }) => {
-    return <ButtonBox {...props} />;
+export const Button: React.SFC<ButtonProps> = ({ children, isLoading, ...props }) => {
+    return <ButtonBox {...props}>{isLoading ? <ButtonLoader /> : children}</ButtonBox>;
 };

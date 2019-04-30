@@ -23,9 +23,14 @@ type AuthRedirectProps = {
 };
 
 // TODO [RM]: consider token expiration, etc and redirect with nice message that session has expired.
-const mapStateToProps = (state: AppState, ownProps: AuthRedirectProps): AuthRedirectInnerProps => ({
-    isLoggedIn: !!state.auth.loginFetch && state.auth.loginFetch.status === "success",
-    ...ownProps,
-});
+const mapStateToProps = (state: AppState, ownProps: AuthRedirectProps): AuthRedirectInnerProps => {
+    return {
+        isLoggedIn:
+            !!state.auth.token &&
+            !!state.auth.tokenExpiresAt &&
+            state.auth.tokenExpiresAt.getTime() > new Date().getTime(),
+        ...ownProps,
+    };
+};
 
 export const AuthRedirect = connect(mapStateToProps)(AuthRedirectInner);

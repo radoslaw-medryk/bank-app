@@ -4,12 +4,11 @@ import { uniqueId } from "src/helpers/uniqueId";
 import { transactionsFetchSuccess } from "../actions/TransactionsFetchSuccess";
 import { AppState } from "src/state/store";
 import axios from "axios";
-import { appConfig } from "src/config";
+import { configPromise } from "src/config";
 import { ApiSuccessfulResponse, ApiTransaction } from "@radoslaw-medryk/bank-core-shared";
 import { mapTransaction } from "src/state/map/mapTransaction";
 import { transactionsFetchError } from "../actions/TransactionsFetchError";
 import { getTransactionsLowestId } from "src/state/helpers/getTransactionsLowestId";
-import { getToken } from "src/state/helpers/getToken";
 
 export const transactionsFetchThunk = () => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
@@ -25,17 +24,18 @@ export const transactionsFetchThunk = () => {
             return;
         }
 
-        const token = getToken(state);
+        const token = state.auth.token;
         const beforeId = getTransactionsLowestId(state, currentAccountId);
 
         const fetchId = uniqueId();
         dispatch(transactionsFetchStart(fetchId, currentAccountId, beforeId));
 
         try {
+            const { apiBaseUrl } = await configPromise;
             const response = await axios.get<ApiSuccessfulResponse<ApiTransaction[]>>(
                 `/api/v1/accounts/${currentAccountId}/operations`,
                 {
-                    baseURL: appConfig.apiBaseUrl,
+                    baseURL: apiBaseUrl,
                     params: { beforeId: beforeId },
                     headers: {
                         Authorization: `Bearer ${token}`,

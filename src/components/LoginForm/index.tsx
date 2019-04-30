@@ -5,18 +5,29 @@ import { TextField } from "../TextField";
 import { Button } from "../Button";
 import { Link } from "react-router-dom";
 import { LoginRegisterSectionSwitch } from "../LoginRegisterSection/Switch";
-
-export type LoginFormField = "LoginForm-email" | "LoginForm-password";
+import { LoginFieldKey } from "src/state/ui/state";
 
 export type LoginFormProps = {
-    onFieldChanged: (field: LoginFormField, value: string) => void;
+    onFieldChanged: (field: LoginFieldKey, value: string) => void;
     emailValue: string;
-    passwordValue: string;
+    emailError: string | undefined;
 
+    passwordValue: string;
+    passwordError: string | undefined;
+
+    isLoading: boolean;
     onSubmit: () => void;
 };
 
-export const LoginForm: React.SFC<LoginFormProps> = ({ onFieldChanged, emailValue, passwordValue, onSubmit }) => {
+export const LoginForm: React.SFC<LoginFormProps> = ({
+    onFieldChanged,
+    emailValue,
+    emailError,
+    passwordValue,
+    passwordError,
+    isLoading,
+    onSubmit,
+}) => {
     return (
         <LoginRegisterSection>
             <Icon type="Logo" className="logo" />
@@ -24,21 +35,25 @@ export const LoginForm: React.SFC<LoginFormProps> = ({ onFieldChanged, emailValu
                 icon="Login"
                 className="field first"
                 placeholder="Email"
-                onChange={q => onFieldChanged("LoginForm-email", q)}
+                onChange={q => onFieldChanged("email", q)}
                 value={emailValue}
+                mode={emailError ? "error" : "default"}
+                hint={emailError}
             />
             <TextField
                 icon="Password"
                 className="field"
                 placeholder="Password"
-                onChange={q => onFieldChanged("LoginForm-password", q)}
+                onChange={q => onFieldChanged("password", q)}
                 value={passwordValue}
+                mode={passwordError ? "error" : "default"}
+                hint={passwordError}
             />
             <div className="spacer" />
             <LoginRegisterSectionSwitch>
                 Don’t have an account? <Link to="/register">Create one here</Link>
             </LoginRegisterSectionSwitch>
-            <Button className="button" onClick={onSubmit}>
+            <Button className="button" onClick={onSubmit} isLoading={isLoading}>
                 Log in
             </Button>
         </LoginRegisterSection>
