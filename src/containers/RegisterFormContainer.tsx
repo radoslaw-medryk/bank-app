@@ -2,30 +2,56 @@ import { connect } from "react-redux";
 import { AppState } from "src/state/store";
 import { AppDispatch } from "src/state/types";
 import { uiSetField } from "src/state/ui/actions/UiSetField";
-import { RegisterForm, RegisterFormField, RegisterFormProps } from "src/components/RegisterForm";
+import { RegisterForm, RegisterFormProps } from "src/components/RegisterForm";
 import { authRegisterThunk } from "src/state/auth/thunks/authRegisterThunk";
+import { uiSetErrors } from "src/state/ui/actions/UiSetErrors";
+import { AreaKey, RegisterFieldKey } from "src/state/ui/state";
+import { Validation } from "rusane";
+import { isFetchLoading } from "src/state/helpers/isFetchLoading";
 
-const emailField: RegisterFormField = "RegisterForm-email";
-const passwordField: RegisterFormField = "RegisterForm-password";
-const confirmPasswordField: RegisterFormField = "RegisterForm-confirmPassword";
+const registerArea: AreaKey = "register";
+
+const emailField: RegisterFieldKey = "email";
+const passwordField: RegisterFieldKey = "password";
+const confirmPasswordField: RegisterFieldKey = "confirmPassword";
 
 const mapStateToProps = (state: AppState) => {
+    const fields = state.ui.fields[registerArea] || {};
+    const errors = state.ui.errors[registerArea] || {};
+
     return {
-        emailValue: state.ui.fields[emailField] || "",
-        passwordValue: state.ui.fields[passwordField] || "",
-        confirmPasswordValue: state.ui.fields[confirmPasswordField] || "",
+        emailValue: fields[emailField] || "",
+        emailError: errors[emailField],
+
+        passwordValue: fields[passwordField] || "",
+        passwordError: errors[passwordField],
+
+        confirmPasswordValue: fields[confirmPasswordField] || "",
+        confirmPasswordError: errors[confirmPasswordField],
+
+        isLoading: isFetchLoading(state.auth.registerFetch),
     };
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
-        onFieldChanged: (field: RegisterFormField, value: string) => {
-            dispatch(uiSetField(field, value));
+        onFieldChanged: (field: RegisterFieldKey, value: string) => {
+            dispatch(uiSetField(registerArea, field, value));
+            dispatch(uiSetErrors(registerArea, [field], undefined));
         },
 
         onSubmit: (email: string, password: string, confirmPassword: string) => {
+            if (email.length < 5 || Validation.validateEmail(email).error) {
+                dispatch(uiSetErrors(registerArea, [emailField], "Please provide valid email address"));
+            }
+
+            if (password.length < 8) {
+                dispatch(uiSetErrors(registerArea, [passwordField], "Password must be at least 8 characters long"));
+                return;
+            }
+
             if (password !== confirmPassword) {
-                // TODO [RM]: show validation error.
+                dispatch(uiSetErrors(registerArea, [confirmPasswordField], "Passwords don't match"));
                 return;
             }
 

@@ -14,6 +14,11 @@ export type AuthState = {
     registerFetch: AuthRegisterFetchState | undefined;
     token: string | undefined;
     tokenExpiresAt: Date | undefined;
+    profile:
+        | undefined
+        | {
+              email: string;
+          };
 };
 
 export const initialAuthState: AuthState = {
@@ -21,4 +26,5 @@ export const initialAuthState: AuthState = {
     registerFetch: undefined,
     token: undefined,
     tokenExpiresAt: undefined,
+    profile: undefined,
 };

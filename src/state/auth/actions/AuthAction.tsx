@@ -5,6 +5,7 @@ import { AuthRegisterFetchStart } from "./AuthRegisterFetchStart";
 import { AuthRegisterFetchSuccess } from "./AuthRegisterFetchSuccess";
 import { AuthRegisterFetchError } from "./AuthRegisterFetchError";
 import { AuthSetToken } from "./AuthSetToken";
+import { AuthSetProfile } from "./AuthSetProfile";
 
 export enum AuthActionType {
     LoginFetchStart = "AuthLoginFetchStart",
@@ -12,6 +13,7 @@ export enum AuthActionType {
     LoginFetchError = "AuthLoginFetchError",
 
     SetToken = "AuthSetToken",
+    SetProfile = "AuthSetProfile",
 
     RegisterFetchStart = "AuthRegisterFetchStart",
     RegisterFetchSuccess = "AuthRegisterFetchSuccess",
@@ -23,6 +25,7 @@ export type AuthAction =
     | AuthLoginFetchSuccess
     | AuthLoginFetchError
     | AuthSetToken
+    | AuthSetProfile
     | AuthRegisterFetchStart
     | AuthRegisterFetchSuccess
     | AuthRegisterFetchError;

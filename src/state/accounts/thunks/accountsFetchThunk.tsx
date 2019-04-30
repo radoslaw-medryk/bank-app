@@ -5,7 +5,7 @@ import { accountsFetchStart } from "../actions/AccountsFetchStart";
 import { ApiAccount } from "@radoslaw-medryk/bank-core-shared/dist/ApiAccount";
 import { ApiSuccessfulResponse } from "@radoslaw-medryk/bank-core-shared";
 import axios from "axios";
-import { appConfig } from "src/config";
+import { configPromise } from "src/config";
 import { mapAccount } from "src/state/map/mapAccount";
 import { accountsFetchSuccess } from "../actions/AccountsFetchSuccess";
 import { accountsFetchError } from "../actions/AccountsFetchError";
@@ -26,8 +26,9 @@ export const accountsFetchThunk = () => {
         }
 
         try {
+            const { apiBaseUrl } = await configPromise;
             const response = await axios.get<ApiSuccessfulResponse<ApiAccount[]>>("/api/v1/accounts", {
-                baseURL: appConfig.apiBaseUrl,
+                baseURL: apiBaseUrl,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

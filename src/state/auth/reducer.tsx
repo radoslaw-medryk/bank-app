@@ -8,6 +8,7 @@ import { AuthRegisterFetchStart } from "./actions/AuthRegisterFetchStart";
 import { AuthRegisterFetchSuccess } from "./actions/AuthRegisterFetchSuccess";
 import { AuthRegisterFetchError } from "./actions/AuthRegisterFetchError";
 import { AuthSetToken } from "./actions/AuthSetToken";
+import { AuthSetProfile } from "./actions/AuthSetProfile";
 
 export const authReducer = (state: AuthState = initialAuthState, action: AppAction): AuthState => {
     switch (action.type) {
@@ -22,6 +23,9 @@ export const authReducer = (state: AuthState = initialAuthState, action: AppActi
 
         case AuthActionType.SetToken:
             return setToken(state, action);
+
+        case AuthActionType.SetProfile:
+            return setProfile(state, action);
 
         case AuthActionType.RegisterFetchStart:
             return registerFetchStart(state, action);
@@ -99,6 +103,20 @@ const setToken = (state: AuthState, action: AuthSetToken): AuthState => {
     return newState;
 };
 
+const setProfile = (state: AuthState, action: AuthSetProfile): AuthState => {
+    const newState: AuthState = {
+        ...state,
+        profile:
+            action.email !== undefined
+                ? {
+                      email: action.email,
+                  }
+                : undefined,
+    };
+
+    return newState;
+};
+
 const registerFetchStart = (state: AuthState, action: AuthRegisterFetchStart): AuthState => {
     const currentFetch = state.registerFetch;
 
@@ -137,7 +155,7 @@ const registerFetchSuccess = (state: AuthState, action: AuthRegisterFetchSuccess
 const registerFetchError = (state: AuthState, action: AuthRegisterFetchError): AuthState => {
     const currentFetch = state.registerFetch;
 
-    if (currentFetch && currentFetch.status === "loading") {
+    if (!currentFetch || currentFetch.status !== "loading" || currentFetch.id !== action.id) {
         return state;
     }
 
@@ -145,7 +163,8 @@ const registerFetchError = (state: AuthState, action: AuthRegisterFetchError): A
         ...state,
         registerFetch: {
             id: action.id,
-            status: "loading",
+            status: "error",
+            error: action.error,
         },
     };
     return newState;

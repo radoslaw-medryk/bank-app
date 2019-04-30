@@ -10,17 +10,20 @@ const persistedTokenStorageKey = "PersistedToken";
 type PersistedToken = {
     token: string | undefined;
     expiresAt: Date | undefined;
+    email: string | undefined;
 };
 
 export type TokenPersistContainerInnerProps = {
     token: string | undefined;
     expiresAt: Date | undefined;
-    setTokenFromStorage: (token: string, expiresAt: Date) => void;
+    email: string | undefined;
+    setTokenFromStorage: (token: string, expiresAt: Date, email: string | undefined) => void;
 };
 
 export const TokenPersistContainerInner: React.SFC<TokenPersistContainerInnerProps> = ({
     token,
     expiresAt,
+    email,
     setTokenFromStorage,
 }) => {
     React.useEffect(() => {
@@ -37,27 +40,27 @@ export const TokenPersistContainerInner: React.SFC<TokenPersistContainerInnerPro
                     return;
                 }
 
-                setTokenFromStorage(persistedToken.token, persistedExpiresAt);
+                setTokenFromStorage(persistedToken.token, persistedExpiresAt, persistedToken.email);
             }
         }
     }, []);
 
     React.useEffect(() => {
-        if (token !== undefined && expiresAt !== undefined) {
-            const isExpired = expiresAt.getTime() <= new Date().getTime();
-            if (isExpired) {
-                return;
-            }
-
-            const persistedToken: PersistedToken = {
-                token: token,
-                expiresAt: expiresAt,
-            };
-            const persistedTokenJson = JSON.stringify(persistedToken);
-
-            window.localStorage.setItem(persistedTokenStorageKey, persistedTokenJson);
+        const isExpired = !token || !expiresAt || expiresAt.getTime() <= new Date().getTime();
+        if (isExpired) {
+            window.localStorage.removeItem(persistedTokenStorageKey);
+            return;
         }
-    }, [token]);
+
+        const persistedToken: PersistedToken = {
+            token: token,
+            expiresAt: expiresAt,
+            email: email,
+        };
+        const persistedTokenJson = JSON.stringify(persistedToken);
+
+        window.localStorage.setItem(persistedTokenStorageKey, persistedTokenJson);
+    }, [token, expiresAt, email]);
 
     return null;
 };
@@ -65,10 +68,12 @@ export const TokenPersistContainerInner: React.SFC<TokenPersistContainerInnerPro
 const mapStateToProps = (state: AppState) => ({
     token: state.auth.token,
     expiresAt: state.auth.tokenExpiresAt,
+    email: state.auth.profile && state.auth.profile.email,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    setTokenFromStorage: (token: string, expiresAt: Date) => dispatch(setTokenThunk(token, expiresAt)),
+    setTokenFromStorage: (token: string, expiresAt: Date, email: string | undefined) =>
+        dispatch(setTokenThunk(token, expiresAt, email)),
 });
 
 export const TokenPersistContainer = connect(
