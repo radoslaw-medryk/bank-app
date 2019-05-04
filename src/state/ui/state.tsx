@@ -1,7 +1,8 @@
-export type AreaKey = "login" | "register";
+export type AreaKey = "login" | "register" | "transferFriend";
 
 export type LoginFieldKey = "email" | "password";
 export type RegisterFieldKey = "email" | "password" | "confirmPassword";
+export type TransferFriendKey = "value";
 
 type Area<T> = {
     [area: string]: {

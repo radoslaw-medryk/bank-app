@@ -1,17 +1,26 @@
 import * as React from "react";
-import { QuickMenu } from "../QuickMenu";
 import { styled } from "linaria/react";
 import { Section } from "../Section";
 import { MoneyField } from "../MoneyField";
 import { FriendOption } from "../FriendOption";
 import { Button } from "../Button";
-import { Currency } from "src/models/Currency";
 import { ApiFriend } from "@radoslaw-medryk/bank-core-shared";
+import { Account } from "src/models/Account";
+import { Currency } from "src/models/Currency";
+import { standardFormatMoney } from "src/helpers/standardFormatMoney";
+import Big from "big.js";
 
-const TextBlock = styled.p`
+type TextBlockProps = JSX.IntrinsicElements["p"] & {
+    isRed?: boolean;
+};
+
+const TextBlock = styled.p<TextBlockProps>`
+    display: flex;
     margin: 0 15px;
     font-size: 14px;
     font-weight: 600;
+
+    color: ${props => (props.isRed ? "var(--red)" : "inherit")};
 `;
 
 const SectionWithMargins = styled(Section)`
@@ -19,21 +28,57 @@ const SectionWithMargins = styled(Section)`
     margin-bottom: 20px;
 `;
 
+const TextOnRight = styled.span`
+    margin: 0 0 0 auto;
+`;
+
 export type TransferToFriendProps = {
     friend: ApiFriend | undefined;
-    currencies: Currency[];
-    selectedCurrency: Currency | undefined;
-    setSelectedCurrency: (currency: Currency) => void;
-    onClose?: () => void;
+    accounts: Account[];
+    selectedAccount: Account | undefined;
+    setSelectedAccount: (account: Account) => void;
+    value: Big | undefined;
+    valueError?: string | undefined;
+    setValue?: (value: Big | undefined) => void;
+    onSubmit?: () => void;
 };
 
 export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
     friend,
-    currencies,
-    selectedCurrency,
-    setSelectedCurrency,
-    onClose,
+    accounts,
+    selectedAccount,
+    setSelectedAccount,
+    value,
+    valueError,
+    setValue,
+    onSubmit,
 }) => {
+    if (accounts.length === 0 || !selectedAccount) {
+        return <div>There are no accounts available.</div>; // TODO [RM]: make nicer
+    }
+
+    const currencies = accounts.map(q => q.balance.currency);
+    const selectedCurrency = selectedAccount && selectedAccount.balance.currency;
+    const onCurrencyChanged = (currency: Currency) => {
+        const account = accounts.find(q => q.balance.currency === currency);
+        account && setSelectedAccount(account);
+    };
+
+    const currencyCode = selectedAccount.balance.currency.code.toUpperCase();
+
+    const availableBalance = selectedAccount.balance.value;
+    const availableValueFormatted = standardFormatMoney(availableBalance);
+    const availableBalanceFormatted = `${availableValueFormatted} ${currencyCode}`;
+
+    let afterBalanceFormatted = "-";
+    let afterBalanceRed = false;
+    if (value !== undefined) {
+        const afterBalance = availableBalance.sub(value);
+        afterBalanceRed = afterBalance.lt(0);
+        const afterValueFormatted = standardFormatMoney(afterBalance);
+        afterBalanceFormatted = `${afterValueFormatted} ${currencyCode}`;
+    }
+
     return (
         <>
             <TextBlock>Send transfer:</TextBlock>
@@ -41,15 +86,23 @@ export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
                 <MoneyField
                     currencies={currencies}
                     selectedCurrency={selectedCurrency}
-                    onCurrencyChanged={setSelectedCurrency}
+                    onCurrencyChanged={onCurrencyChanged}
+                    value={value}
+                    onValueChanged={setValue}
+                    mode={valueError ? "error" : "default"}
+                    hint={valueError}
                 />
             </SectionWithMargins>
             <TextBlock>To:</TextBlock>
             <SectionWithMargins>{friend ? <FriendOption friend={friend} /> : "Loading..."}</SectionWithMargins>
-            <TextBlock>Available balance: xxx</TextBlock>
-            <TextBlock>After operation: xxx</TextBlock>
+            <TextBlock>
+                Available balance: <TextOnRight>{availableBalanceFormatted}</TextOnRight>
+            </TextBlock>
+            <TextBlock isRed={afterBalanceRed}>
+                After operation: <TextOnRight>{afterBalanceFormatted}</TextOnRight>
+            </TextBlock>
             <SectionWithMargins>
-                <Button>Transfer</Button>
+                <Button onClick={onSubmit}>Transfer</Button>
             </SectionWithMargins>
         </>
     );

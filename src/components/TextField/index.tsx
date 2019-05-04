@@ -6,7 +6,7 @@ import { Icon } from "../Icon";
 import { IconType } from "../Icon/Type";
 import { TextFieldHint } from "./internal/Hint";
 import { TextFieldWrapper } from "./internal/Wrapper";
-import { TextFieldMode } from "./internal/Mode";
+import { TextFieldMode } from "./Mode";
 
 const TextFieldBox = styled.div`
     width: 100%;

@@ -1,11 +1,11 @@
 import { styled } from "linaria/react";
-import { TextFieldMode } from "../Mode";
+import { MoneyFieldMode } from "../Mode";
 
-export type TextFieldHintProps = {
-    mode: TextFieldMode;
+export type MoneyFieldHintProps = {
+    mode: MoneyFieldMode;
 };
 
-export const TextFieldHint = styled.div<TextFieldHintProps>`
+export const MoneyFieldHint = styled.div<MoneyFieldHintProps>`
     margin: 2px 0 0 0;
     height: 15px;
     text-align: right;

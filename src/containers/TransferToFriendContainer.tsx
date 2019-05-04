@@ -4,7 +4,13 @@ import { AppState } from "src/state/store";
 import { AppDispatch } from "src/state/types";
 import { accountSetCurrent } from "src/state/accounts/actions/AccountSetCurrent";
 import { Account } from "src/models/Account";
-import { Currency } from "src/models/Currency";
+import Big from "big.js";
+import { AreaKey, TransferFriendKey } from "src/state/ui/state";
+import { uiSetField } from "src/state/ui/actions/UiSetField";
+import { uiSetErrors } from "src/state/ui/actions/UiSetErrors";
+
+const areaKey: AreaKey = "transferFriend";
+const valueField: TransferFriendKey = "value";
 
 export type TransferToFriendContainerProps = {
     friendId: number;
@@ -24,40 +30,84 @@ const mapStateToProps = (state: AppState, ownProps: TransferToFriendContainerPro
     const availableAccounts = accountsFetch && accountsFetch.status === "success" ? accountsFetch.data : [];
     const selectedAccount = availableAccounts.find(q => q.id === state.accounts.currentAccountId);
 
-    const availableCurrencies = availableAccounts.map(q => q.balance.currency);
-    const selectedCurrency = selectedAccount ? selectedAccount.balance.currency : undefined;
+    const uiFields = state.ui.fields[areaKey] || {};
+    const uiErrors = state.ui.errors[areaKey] || {};
+
+    const valueStr = uiFields[valueField];
+    const value = valueStr !== undefined ? new Big(valueStr) : undefined;
+
+    const valueError = uiErrors[valueField];
 
     return {
         friend: friend,
         onClose: ownProps.onClose,
-        currencies: availableCurrencies,
-        selectedCurrency: selectedCurrency,
+        accounts: availableAccounts,
+        selectedAccount: selectedAccount,
+        value: value,
 
-        _accounts: availableAccounts,
+        valueError: valueError,
     };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    _setSelectedAccount: (account: Account) => dispatch(accountSetCurrent(account.id)),
-});
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    const _onSubmit = (value: Big | undefined, selectedAccount: Account | undefined) => {
+        if (!selectedAccount) {
+            dispatch(uiSetErrors(areaKey, [valueField], "Invalid currency selected"));
+            return;
+        }
+
+        if (!value) {
+            dispatch(uiSetErrors(areaKey, [valueField], "Invalid value"));
+            return;
+        }
+
+        if (value.lte(0)) {
+            dispatch(uiSetErrors(areaKey, [valueField], "Must be greater than zero"));
+            return;
+        }
+
+        if (selectedAccount.balance.value.lt(value)) {
+            dispatch(uiSetErrors(areaKey, [valueField], "Insufficient funds"));
+            return;
+        }
+
+        dispatch(uiSetErrors(areaKey, [valueField], undefined));
+        alert("Submitting...");
+        // TODO [RM]:submit transfer thunk
+    };
+
+    const setValue = (value: Big | undefined) => {
+        dispatch(uiSetErrors(areaKey, [valueField], undefined));
+        dispatch(uiSetField(areaKey, valueField, value && value.toString()));
+    };
+
+    const setSelectedAccount = (account: Account) => {
+        dispatch(uiSetErrors(areaKey, [valueField], undefined));
+        dispatch(accountSetCurrent(account.id));
+    };
+
+    return {
+        setSelectedAccount: setSelectedAccount,
+        setValue: setValue,
+        _onSubmit: _onSubmit,
+    };
+};
 
 type PropsFromState = ReturnType<typeof mapStateToProps>;
 type PropsFromDispatch = ReturnType<typeof mapDispatchToProps>;
 
 const mergeProps = (stateProps: PropsFromState, dispatchProps: PropsFromDispatch): TransferToFriendProps => {
-    const { _accounts, ...passingStateProps } = stateProps;
-    const { _setSelectedAccount, ...passingDispatchProps } = dispatchProps;
+    const { _onSubmit, ...passedDispatchProps } = dispatchProps;
 
-    const setSelectedCurrency = (currency: Currency) => {
-        const account = _accounts.find(q => q.balance.currency === currency);
-        account && _setSelectedAccount(account);
+    const onSubmit = () => {
+        _onSubmit(stateProps.value, stateProps.selectedAccount);
     };
 
     return {
-        ...passingStateProps,
-        ...passingDispatchProps,
+        ...stateProps,
+        ...passedDispatchProps,
 
-        setSelectedCurrency: setSelectedCurrency,
+        onSubmit: onSubmit,
     };
 };
 
