@@ -22,5 +22,7 @@ type FetchStateError<TError> = {
     error: TError;
 };
 
+export type FetchStatus = "none" | "loading" | "success" | "error";
+
 export type FetchState<TData, TError> = FetchStateBase &
     (FetchStateNone | FetchStateLoading | FetchStateSuccess<TData> | FetchStateError<TError>);

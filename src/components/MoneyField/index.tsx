@@ -3,6 +3,7 @@ import { styled } from "linaria/react";
 import { MoneyFieldInput } from "./internal/Input";
 import { Currency } from "src/models/Currency";
 import { MoneyFieldCurrencySelect } from "./internal/CurrencySelect";
+import { SelectCurrencyPopup } from "../SelectCurrencyPopup";
 
 const MoneyFieldBox = styled.div`
     height: 50px;
@@ -15,13 +16,34 @@ const MoneyFieldBox = styled.div`
 
 export type MoneyFieldProps = {
     currencies: Currency[];
-    initialCurrency: Currency;
+    selectedCurrency: Currency | undefined;
+    onCurrencyChanged?: (currency: Currency) => void;
 };
 
-export const MoneyField: React.SFC<MoneyFieldProps> = ({ initialCurrency }) => {
+export const MoneyField: React.SFC<MoneyFieldProps> = ({ currencies, selectedCurrency, onCurrencyChanged }) => {
+    const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
+    const onSelectClick = () => {
+        setIsPopupOpen(true);
+    };
+
+    const onSelected = (currency: Currency) => {
+        onCurrencyChanged && onCurrencyChanged(currency);
+        setIsPopupOpen(false);
+    };
+
+    const onCancel = () => {
+        setIsPopupOpen(false);
+    };
+
     return (
         <MoneyFieldBox>
-            <MoneyFieldCurrencySelect currency={initialCurrency} />
+            {isPopupOpen ? (
+                <SelectCurrencyPopup currencies={currencies} onSelected={onSelected} onCancel={onCancel} />
+            ) : (
+                undefined
+            )}
+            <MoneyFieldCurrencySelect currency={selectedCurrency} onClick={onSelectClick} />
             <MoneyFieldInput type="number" placeholder="0.00" min={0} step="0.01" />
         </MoneyFieldBox>
     );

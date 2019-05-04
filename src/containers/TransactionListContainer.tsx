@@ -68,7 +68,6 @@ const mapStateToProps = (state: AppState, ownProps: TransactionListContainerProp
 const mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         getMore: () => {
-            console.log("getMore() called.");
             dispatch(transactionsFetchThunk());
         },
     };

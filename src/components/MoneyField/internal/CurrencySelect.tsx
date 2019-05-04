@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "linaria/react";
-import { CurrencyDisplayProps, CurrencyDisplay } from "src/components/CurrencyDisplay";
+import { CurrencyOptionProps, CurrencyOption } from "src/components/CurrencyOption";
 import { Icon } from "src/components/Icon";
 
 const MoneyFieldCurrencySelectBox = styled.div`
@@ -19,14 +19,16 @@ const MoneyFieldCurrencySelectBox = styled.div`
     }
 `;
 
-export type MoneyFieldCurrencySelectProps = CurrencyDisplayProps & {
-    //
+export type MoneyFieldCurrencySelectProps = PartialSelected<CurrencyOptionProps, "currency"> & {
+    onClick?: () => void;
 };
 
-export const MoneyFieldCurrencySelect: React.SFC<MoneyFieldCurrencySelectProps> = ({ ...rest }) => {
+export const MoneyFieldCurrencySelect: React.SFC<MoneyFieldCurrencySelectProps> = ({ onClick, currency, ...rest }) => {
+    // TODO [RM]: make better loading state
+
     return (
-        <MoneyFieldCurrencySelectBox>
-            <CurrencyDisplay className="currency" {...rest} />
+        <MoneyFieldCurrencySelectBox onClick={onClick}>
+            {currency ? <CurrencyOption className="currency" currency={currency} {...rest} /> : "Loading..."}
             <Icon type="ArrowDown" />
         </MoneyFieldCurrencySelectBox>
     );
