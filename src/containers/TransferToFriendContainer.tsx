@@ -8,6 +8,7 @@ import Big from "big.js";
 import { AreaKey, TransferFriendKey } from "src/state/ui/state";
 import { uiSetField } from "src/state/ui/actions/UiSetField";
 import { uiSetErrors } from "src/state/ui/actions/UiSetErrors";
+import { transferFriendThunk } from "src/state/friends/thunks/transferFriendThunk";
 
 const areaKey: AreaKey = "transferFriend";
 const valueField: TransferFriendKey = "value";
@@ -49,7 +50,7 @@ const mapStateToProps = (state: AppState, ownProps: TransferToFriendContainerPro
     };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: TransferToFriendContainerProps) => {
     const _onSubmit = (value: Big | undefined, selectedAccount: Account | undefined) => {
         if (!selectedAccount) {
             dispatch(uiSetErrors(areaKey, [valueField], "Invalid currency selected"));
@@ -72,8 +73,8 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
         }
 
         dispatch(uiSetErrors(areaKey, [valueField], undefined));
-        alert("Submitting...");
-        // TODO [RM]:submit transfer thunk
+
+        dispatch(transferFriendThunk(selectedAccount.id, ownProps.friendId, value));
     };
 
     const setValue = (value: Big | undefined) => {

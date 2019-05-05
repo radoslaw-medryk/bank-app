@@ -13,6 +13,8 @@ import { FriendsListContainer } from "src/containers/FriendsListContainer";
 import { TransferToFriendContainer } from "src/containers/TransferToFriendContainer";
 import { FetchFriendsContainer } from "src/containers/FetchFriendsContainer";
 import { QuickMenu } from "src/components/QuickMenu";
+import { TransferFriendSuccessfulRedirect } from "src/containers/TransferFriendSuccessfulRedirect";
+import { Link } from "react-router-dom";
 
 const AccountSwitcherSpacer: React.SFC<{}> = () => <Spacer height="52px" />;
 
@@ -46,11 +48,19 @@ const SelectedFriendPart: React.SFC<PageProps> = ({ match, history }) => {
 
     return (
         <>
+            <TransferFriendSuccessfulRedirect to={`/transfer/success`} />
             <QuickMenu showClose={true} onClose={onClose} />
             <TransferToFriendContainer friendId={friendId} />
         </>
     );
 };
+
+const SuccessPart: React.SFC<PageProps> = ({ match }) => (
+    <>
+        <div>SUCCESS</div>
+        <Link to={`/`}>Close</Link>
+    </>
+);
 
 export const TransferPage: React.SFC<PageProps> = ({ match }) => {
     return (
@@ -58,6 +68,7 @@ export const TransferPage: React.SFC<PageProps> = ({ match }) => {
             <AuthRedirect to="/login" when="not-logged-in" />
             <Switch>
                 <Route exact path={`${match.url}/`} component={SelectPart} />
+                <Route exact path={`${match.url}/success`} component={SuccessPart} />
                 <Route exact path={`${match.url}/friend`} component={FriendsPart} />
                 <Route exact path={`${match.url}/friend/:id`} component={SelectedFriendPart} />
                 <Route render={() => <Redirect to={match.url} />} />

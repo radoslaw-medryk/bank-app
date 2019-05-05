@@ -10,11 +10,13 @@ import { mapAccount } from "src/state/map/mapAccount";
 import { accountsFetchSuccess } from "../actions/AccountsFetchSuccess";
 import { accountsFetchError } from "../actions/AccountsFetchError";
 import { accountSetCurrent } from "../actions/AccountSetCurrent";
+import { transactionsClear } from "../actions/TransactionsClear";
 
 export const accountsFetchThunk = () => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
         const fetchId = uniqueId();
         dispatch(accountsFetchStart(fetchId));
+        dispatch(transactionsClear());
 
         const state = getState();
         const token = state.auth.token;
