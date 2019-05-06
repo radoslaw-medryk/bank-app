@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { Link } from "react-router-dom";
 import { LoginRegisterSectionSwitch } from "../LoginRegisterSection/Switch";
 import { LoginFieldKey } from "src/state/ui/state";
+import { HorizontalCentered } from "../HorizontalCentered";
 
 export type LoginFormProps = {
     onFieldChanged: (field: LoginFieldKey, value: string) => void;
@@ -30,7 +31,9 @@ export const LoginForm: React.SFC<LoginFormProps> = ({
 }) => {
     return (
         <LoginRegisterSection>
-            <Icon type="Logo" className="logo" />
+            <HorizontalCentered>
+                <Icon type="Logo" className="logo" />
+            </HorizontalCentered>
             <TextField
                 icon="Login"
                 className="field first"
