@@ -40,6 +40,7 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
                 <Icon type="Logo" className="logo" />
             </HorizontalCentered>
             <TextField
+                type="email"
                 icon="Login"
                 className="field first"
                 placeholder="Email"
@@ -49,6 +50,7 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
                 hint={emailError}
             />
             <TextField
+                type="password"
                 icon="Password"
                 className="field"
                 placeholder="New password"
@@ -58,6 +60,7 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
                 hint={passwordError}
             />
             <TextField
+                type="password"
                 icon="Password"
                 className="field"
                 placeholder="Confirm password"

@@ -3,7 +3,8 @@ import * as React from "react";
 import { Icon } from "../Icon";
 
 const QuickMenuBox = styled.div`
-    padding: 15px 15px 10px;
+    padding: 0 15px 0;
+    height: 50px;
 
     display: flex;
     flex-flow: row nowrap;
@@ -11,7 +12,7 @@ const QuickMenuBox = styled.div`
     align-items: center;
 
     & > * {
-        margin: 0 4px;
+        margin: 0 8px;
     }
 `;
 

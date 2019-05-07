@@ -9,9 +9,15 @@ import { authRegisterFetchSuccess } from "../actions/AuthRegisterFetchSuccess";
 import { authRegisterFetchError } from "../actions/AuthRegisterFetchError";
 import { authLoginThunk } from "./authLoginThunk";
 import { registerApiErrorsThunk } from "src/state/ui/thunks/registerApiErrorsThunk";
+import { AppState } from "src/state/store";
 
 export const authRegisterThunk = (email: string, password: string) => {
-    return async (dispatch: AppDispatch) => {
+    return async (dispatch: AppDispatch, getState: () => AppState) => {
+        const currentRegisterFetch = getState().auth.loginFetch;
+        if (currentRegisterFetch && currentRegisterFetch.status === "loading") {
+            return;
+        }
+
         const fetchId = uniqueId();
         dispatch(authRegisterFetchStart(fetchId));
 

@@ -13,6 +13,7 @@ const TextFieldBox = styled.div`
 `;
 
 export type TextFieldProps = {
+    type?: string;
     placeholder?: string;
     hint?: string;
     mode?: TextFieldMode;
@@ -24,6 +25,7 @@ export type TextFieldProps = {
 };
 
 export const TextField: React.SFC<TextFieldProps> = ({
+    type,
     placeholder,
     hint,
     mode,
@@ -55,7 +57,7 @@ export const TextField: React.SFC<TextFieldProps> = ({
     return (
         <TextFieldBox className={className}>
             <TextFieldWrapper mode={mode}>
-                <TextFieldInput placeholder={placeholder} value={value} onChange={onInputChange} />
+                <TextFieldInput type={type} placeholder={placeholder} value={value} onChange={onInputChange} />
                 {iconElement}
             </TextFieldWrapper>
             <TextFieldHint mode={mode}>{hint}</TextFieldHint>

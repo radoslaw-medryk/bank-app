@@ -33,6 +33,7 @@ const TextOnRight = styled.span`
 `;
 
 export type TransferToFriendProps = {
+    isInProgress: boolean;
     friend: ApiFriend | undefined;
     accounts: Account[];
     selectedAccount: Account | undefined;
@@ -44,6 +45,7 @@ export type TransferToFriendProps = {
 };
 
 export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
+    isInProgress,
     friend,
     accounts,
     selectedAccount,
@@ -102,7 +104,9 @@ export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
                 After operation: <TextOnRight>{afterBalanceFormatted}</TextOnRight>
             </TextBlock>
             <SectionWithMargins>
-                <Button onClick={onSubmit}>Transfer</Button>
+                <Button onClick={onSubmit} isLoading={isInProgress}>
+                    Transfer
+                </Button>
             </SectionWithMargins>
         </>
     );

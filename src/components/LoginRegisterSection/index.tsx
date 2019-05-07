@@ -7,14 +7,14 @@ export const LoginRegisterSection = styled(Section)`
     flex-flow: column nowrap;
 
     .logo {
-        margin: 40px 0 0;
+        margin: 30px 0 0;
     }
 
     .field {
         margin: 10px 0 0;
 
         &.first {
-            margin: 60px 0 0;
+            margin: 50px 0 0;
         }
     }
 

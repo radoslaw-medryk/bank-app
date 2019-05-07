@@ -5,6 +5,7 @@ import { ApiFriend } from "@radoslaw-medryk/bank-core-shared";
 
 export type FriendsListContainerProps = {
     linkTo: (friend: ApiFriend) => string;
+    search?: string;
 };
 
 const mapStateToProps = (state: AppState, ownProps: FriendsListContainerProps): FriendsListProps => {
@@ -15,6 +16,7 @@ const mapStateToProps = (state: AppState, ownProps: FriendsListContainerProps): 
     return {
         friends: friends,
         linkTo: ownProps.linkTo,
+        search: ownProps.search,
     };
 };
 

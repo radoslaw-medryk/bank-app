@@ -6,6 +6,7 @@ import { AccountsFetchStart } from "./AccountsFetchStart";
 import { AccountsFetchSuccess } from "./AccountsFetchSuccess";
 import { AccountsFetchError } from "./AccountsFetchError";
 import { AccountSetCurrent } from "./AccountSetCurrent";
+import { AccountsClear } from "./AccountsClear";
 
 export enum AccountsActionType {
     TransactionsFetchStart = "TransactionsFetchStart",
@@ -16,6 +17,7 @@ export enum AccountsActionType {
     AccountsFetchStart = "AccountsFetchStart",
     AccountsFetchSuccess = "AccountsFetchSuccess",
     AccountsFetchError = "AccountsFetchError",
+    AccountsClear = "AccountsClear",
 
     AccountSetCurrent = "AccountSetCurrent",
 }
@@ -28,4 +30,5 @@ export type AccountsAction =
     | AccountsFetchStart
     | AccountsFetchSuccess
     | AccountsFetchError
+    | AccountsClear
     | AccountSetCurrent;

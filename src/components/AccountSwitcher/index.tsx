@@ -3,13 +3,14 @@ import { styled } from "linaria/react";
 import { AccountSwitcherAccount } from "./internal/Account";
 import { AccountSwitcherDots } from "./internal/Dots";
 import { Account } from "src/models/Account";
+import { AccountSwitcherAccountPlaceholder } from "./internal/AccountPlaceholder";
 
 const AccountSwitcherBox = styled.div`
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    margin: 0 0 8px;
+    margin: 8px 0 0;
 
     display: flex;
     flex-flow: row nowrap;
@@ -65,12 +66,14 @@ export const AccountSwitcher: React.SFC<AccountSwitcherProps> = ({ accounts, ind
 
     return (
         <div>
-            <AccountSwitcherBox ref={boxRef} onScroll={onScroll}>
-                {accounts.map(q => (
-                    <AccountSwitcherAccount key={q.id} balance={q.balance} />
-                ))}
-            </AccountSwitcherBox>
             <AccountSwitcherDots total={elementCount} index={index} />
+            <AccountSwitcherBox ref={boxRef} onScroll={onScroll}>
+                {accounts.length > 0 ? (
+                    accounts.map(q => <AccountSwitcherAccount key={q.id} balance={q.balance} />)
+                ) : (
+                    <AccountSwitcherAccountPlaceholder />
+                )}
+            </AccountSwitcherBox>
         </div>
     );
 };

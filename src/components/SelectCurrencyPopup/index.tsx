@@ -25,15 +25,24 @@ export type SelectCurrencyPopupProps = {
 };
 
 export const SelectCurrencyPopup: React.SFC<SelectCurrencyPopupProps> = ({ currencies, onSelected, onCancel }) => {
+    const [search, setSearch] = React.useState("");
+
     const onOptionClick = (currency: Currency) => () => {
         onSelected && onSelected(currency);
     };
+
+    if (search) {
+        const searchLower = search.toLocaleLowerCase();
+        currencies = currencies.filter(q =>
+            [q.name, q.code, q.symbol].some(x => x.toLocaleLowerCase().includes(searchLower))
+        );
+    }
 
     return (
         <SelectCurrencyPopupBox>
             <QuickMenu showClose={true} onClose={onCancel} />
             <Section>
-                <TextField placeholder="Search" icon="Search" />
+                <TextField placeholder="Search" icon="Search" value={search} onChange={setSearch} />
                 <OptionsList>
                     {currencies.map(q => (
                         <a key={q.code} onClick={onOptionClick(q)}>

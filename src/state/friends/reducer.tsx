@@ -8,6 +8,7 @@ import { TransferFriendFetchStart } from "./actions/TransferFriendFetchStart";
 import { TransferFriendFetchSuccess } from "./actions/TransferFriendFetchSuccess";
 import { TransferFriendFetchError } from "./actions/TransferFriendFetchError";
 import { TransferFriendFetchReset } from "./actions/TransferFriendFetchReset";
+import { FriendsReset } from "./actions/FriendsReset";
 
 export const friendsReducer = (
     state: FriendsState | undefined = initialFriendsState,
@@ -34,6 +35,9 @@ export const friendsReducer = (
 
         case FriendsActionType.TransferFriendFetchReset:
             return transferFriendFetchReset(state, action);
+
+        case FriendsActionType.FriendsReset:
+            return friendsReset(state, action);
     }
     return state;
 };
@@ -156,4 +160,8 @@ const transferFriendFetchReset = (state: FriendsState, action: TransferFriendFet
         transferFriendFetch: undefined,
     };
     return newState;
+};
+
+const friendsReset = (state: FriendsState, action: FriendsReset): FriendsState => {
+    return initialFriendsState;
 };

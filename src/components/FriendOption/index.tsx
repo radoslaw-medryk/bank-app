@@ -13,7 +13,7 @@ export type FriendOptionProps = {
 
 export const FriendOption: React.SFC<FriendOptionProps> = ({ friend }) => {
     const iconSet = friend.gender === "m" ? maleIcons : femaleIcons;
-    const icon = iconSet[Math.floor(Math.random() * iconSet.length)];
+    const icon = iconSet[friend.name.length % iconSet.length]; // pseudo-"random" icon for now
 
     return <Option icon={<Icon type={icon} />} title={friend.name} />;
 };

@@ -35,6 +35,7 @@ export const LoginForm: React.SFC<LoginFormProps> = ({
                 <Icon type="Logo" className="logo" />
             </HorizontalCentered>
             <TextField
+                type="email"
                 icon="Login"
                 className="field first"
                 placeholder="Email"
@@ -44,6 +45,7 @@ export const LoginForm: React.SFC<LoginFormProps> = ({
                 hint={emailError}
             />
             <TextField
+                type="password"
                 icon="Password"
                 className="field"
                 placeholder="Password"

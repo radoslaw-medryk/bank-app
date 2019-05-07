@@ -5,6 +5,7 @@ import { TransferFriendFetchStart } from "./TransferFriendFetchStart";
 import { TransferFriendFetchSuccess } from "./TransferFriendFetchSuccess";
 import { TransferFriendFetchError } from "./TransferFriendFetchError";
 import { TransferFriendFetchReset } from "./TransferFriendFetchReset";
+import { FriendsReset } from "./FriendsReset";
 
 export enum FriendsActionType {
     FriendsFetchStart = "FriendsFetchStart",
@@ -15,6 +16,8 @@ export enum FriendsActionType {
     TransferFriendFetchSuccess = "TransferFriendFetchSuccess",
     TransferFriendFetchError = "TransferFriendFetchError",
     TransferFriendFetchReset = "TransferFriendFetchReset",
+
+    FriendsReset = "FriendsReset",
 }
 
 export type FriendsAction =
@@ -24,4 +27,5 @@ export type FriendsAction =
     | TransferFriendFetchStart
     | TransferFriendFetchSuccess
     | TransferFriendFetchError
-    | TransferFriendFetchReset;
+    | TransferFriendFetchReset
+    | FriendsReset;

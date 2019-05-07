@@ -7,10 +7,17 @@ import { FriendOption } from "../FriendOption";
 export type FriendsListProps = {
     friends: ApiFriend[] | undefined;
     linkTo: (friend: ApiFriend) => string;
+    search?: string;
 };
 
-export const FriendsList: React.SFC<FriendsListProps> = ({ friends, linkTo }) => {
+export const FriendsList: React.SFC<FriendsListProps> = ({ friends, linkTo, search }) => {
     // TODO [RM]: add nicer loading
+
+    if (friends && search) {
+        const searchLower = (search = search.toLocaleLowerCase());
+        friends = friends.filter(q => q.name.toLocaleLowerCase().includes(searchLower));
+    }
+
     return (
         <OptionsList>
             {friends

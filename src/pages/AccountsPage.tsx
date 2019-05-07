@@ -1,7 +1,6 @@
 import * as React from "react";
 import { PageBox } from "./PageBox";
 import { QuickMenu } from "src/components/QuickMenu";
-import { QuickMenuItem } from "src/components/QuickMenu/Item";
 import { Chart } from "src/components/Chart";
 import { mockChart } from "src/helpers/mock";
 import { MobileMenuContainer } from "src/containers/MobileMenuContainer";
@@ -18,16 +17,17 @@ export const AccountsPage: React.SFC<PageProps> = ({ match }) => {
         if (!element) {
             return;
         }
-        setTransactionListHeight(window.innerHeight - element.offsetTop - mobileMenuHeight);
+        const buffer = 5; // px
+        setTransactionListHeight(window.innerHeight - element.offsetTop - mobileMenuHeight - buffer);
     }, []);
 
     return (
         <PageBox>
             <AuthRedirect to="/login" when="not-logged-in" />
             <QuickMenu>
-                <QuickMenuItem icon={"Accounts"} to={`${match.url}/currencies`} />
+                {/* <QuickMenuItem icon={"Accounts"} to={`${match.url}/currencies`} />
                 <QuickMenuItem icon={"Exchange"} to={`${match.url}/exchange`} />
-                <QuickMenuItem icon={"Add"} to={`${match.url}/add`} />
+                <QuickMenuItem icon={"Add"} to={`${match.url}/add`} /> */}
             </QuickMenu>
             <AccountSwitcherContainer />
             <Chart data={mockChart()} />

@@ -11,7 +11,7 @@ import { uiSetErrors } from "src/state/ui/actions/UiSetErrors";
 import { transferFriendThunk } from "src/state/friends/thunks/transferFriendThunk";
 
 const areaKey: AreaKey = "transferFriend";
-const valueField: TransferFriendKey = "value";
+const valueField: TransferFriendKey = "amount";
 
 export type TransferToFriendContainerProps = {
     friendId: number;
@@ -19,7 +19,10 @@ export type TransferToFriendContainerProps = {
 };
 
 const mapStateToProps = (state: AppState, ownProps: TransferToFriendContainerProps) => {
+    const transferFriendFetch = state.friends.transferFriendFetch;
     const friendsFetch = state.friends.friendsFetch;
+
+    const isInProgress = !!transferFriendFetch && transferFriendFetch.status === "loading";
 
     const friend =
         friendsFetch && friendsFetch.status === "success"
@@ -40,6 +43,7 @@ const mapStateToProps = (state: AppState, ownProps: TransferToFriendContainerPro
     const valueError = uiErrors[valueField];
 
     return {
+        isInProgress: isInProgress,
         friend: friend,
         onClose: ownProps.onClose,
         accounts: availableAccounts,

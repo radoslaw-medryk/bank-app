@@ -9,6 +9,7 @@ import { AccountsFetchStart } from "./actions/AccountsFetchStart";
 import { AccountsFetchSuccess } from "./actions/AccountsFetchSuccess";
 import { AccountsFetchError } from "./actions/AccountsFetchError";
 import { AccountSetCurrent } from "./actions/AccountSetCurrent";
+import { AccountsClear } from "./actions/AccountsClear";
 
 export const accountsReducer = (state: AccountsState = initialAccountsState, action: AppAction): AccountsState => {
     switch (action.type) {
@@ -20,6 +21,9 @@ export const accountsReducer = (state: AccountsState = initialAccountsState, act
 
         case AccountsActionType.AccountsFetchError:
             return accountsFetchError(state, action);
+
+        case AccountsActionType.AccountsClear:
+            return accountsClear(state, action);
 
         case AccountsActionType.TransactionsFetchStart:
             return transactionsFetchStart(state, action);
@@ -154,6 +158,15 @@ const accountsFetchError = (state: AccountsState, action: AccountsFetchError): A
             error: action.error,
         },
     };
+    return newState;
+};
+
+const accountsClear = (state: AccountsState, action: AccountsClear): AccountsState => {
+    const newState: AccountsState = {
+        ...state,
+        accountsFetch: undefined,
+    };
+
     return newState;
 };
 
