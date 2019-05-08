@@ -45,7 +45,7 @@ Redux Thunk is used for making side-effects, like API calls, while dispatching a
 #### Backend service
 - Clone repo [bank-core](https://github.com/radoslaw-medryk/bank-core.git)
 - `npm install`
-- `npm run db`
+- `npm run db` *(requires docker)*
 - `npm run start`
 
 #### Frontend service
@@ -53,3 +53,10 @@ Redux Thunk is used for making side-effects, like API calls, while dispatching a
 - Clone repo [bank-app](https://github.com/radoslaw-medryk/bank-app.git)
 - `npm install`
 - `npm run start`
+
+## Still left `TODO`:
+- Desktop/Tablet friendly version (mobile only so far)
+- Manage accounts (open accounts for new currencies)
+- Manage friends (so far a few predefined friends)
+- Currency exchange functionality (with varying exchange rate, etc.)
+- And more...
