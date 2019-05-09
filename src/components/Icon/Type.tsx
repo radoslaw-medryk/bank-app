@@ -50,4 +50,5 @@ export type IconType =
     | "Success"
     | "Operation"
     | "Topup"
-    | "Wip";
+    | "Wip"
+    | "Mobile";
