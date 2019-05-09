@@ -31,7 +31,7 @@ export const Chart: React.SFC<ChartProps> = ({ data }) => {
 
     return (
         <ChartBox>
-            <VictoryChart width={320} height={140} padding={{ bottom: 20 }}>
+            <VictoryChart width={320} height={120} padding={{ bottom: 20 }}>
                 <VictoryAxis scale="time" style={axisStyle} />
                 <VictoryArea
                     style={areaStyle}
