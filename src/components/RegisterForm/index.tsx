@@ -1,11 +1,13 @@
 import * as React from "react";
-import { LoginRegisterSection } from "../LoginRegisterSection";
+import { LoginRegisterForm } from "../LoginRegisterSection";
 import { Icon } from "../Icon";
 import { TextField } from "../TextField";
 import { LoginRegisterSectionSwitch } from "../LoginRegisterSection/Switch";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
 import { RegisterFieldKey } from "src/state/ui/state";
+import { HorizontalCentered } from "../HorizontalCentered";
+import { HiddenSubmit } from "../HiddenSubmit";
 
 export type RegisterFormProps = {
     onFieldChanged: (field: RegisterFieldKey, value: string) => void;
@@ -33,10 +35,19 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
     isLoading,
     onSubmit,
 }) => {
+    const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        onSubmit();
+    };
+
     return (
-        <LoginRegisterSection>
-            <Icon type="Logo" className="logo" />
+        <LoginRegisterForm onSubmit={onFormSubmit}>
+            <HiddenSubmit />
+            <HorizontalCentered>
+                <Icon type="Logo" className="logo" />
+            </HorizontalCentered>
             <TextField
+                type="email"
                 icon="Login"
                 className="field first"
                 placeholder="Email"
@@ -46,6 +57,7 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
                 hint={emailError}
             />
             <TextField
+                type="password"
                 icon="Password"
                 className="field"
                 placeholder="New password"
@@ -55,6 +67,7 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
                 hint={passwordError}
             />
             <TextField
+                type="password"
                 icon="Password"
                 className="field"
                 placeholder="Confirm password"
@@ -70,6 +83,6 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
             <Button className="button" onClick={onSubmit} isLoading={isLoading}>
                 Create account
             </Button>
-        </LoginRegisterSection>
+        </LoginRegisterForm>
     );
 };

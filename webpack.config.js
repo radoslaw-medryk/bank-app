@@ -1,6 +1,8 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const StylelintWebpackPlugin = require("stylelint-webpack-plugin");
+const hash = require("string-hash");
+const { relative } = require("path");
 
 module.exports = (env, argv) => {
     const isProduction = !!argv && argv.mode === "production";
@@ -62,12 +64,22 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.svg$/,
-                    use: {
-                        loader: "react-svg-loader",
-                        options: {
-                            // jsx: true,
+                    use: ({ resource }) => [
+                        {
+                            loader: "react-svg-loader",
+                            options: {
+                                svgo: {
+                                    plugins: [
+                                        {
+                                            cleanupIDs: {
+                                                prefix: `svg${hash(relative(__dirname, resource))}`,
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
                         },
-                    },
+                    ],
                 },
             ],
         },

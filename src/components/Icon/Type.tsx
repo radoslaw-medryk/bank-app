@@ -46,4 +46,9 @@ export type IconType =
     | "Man2"
     | "Logo"
     | "Login"
-    | "Password";
+    | "Password"
+    | "Success"
+    | "Operation"
+    | "Topup"
+    | "Wip"
+    | "Mobile";

@@ -7,6 +7,7 @@ type AccountSwitcherDotProps = {
 
 const AccountSwitcherDotBox = styled.div`
     width: 8px;
+    height: 6px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;

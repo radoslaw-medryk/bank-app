@@ -4,10 +4,14 @@ import { AccountSwitcherBalance } from "./Balance";
 import { AccountSwitcherDetails } from "./Details";
 import { styled } from "linaria/react";
 
+export const accountHeight = 45;
+
 const AccountSwitcherAccountBox = styled.div`
+    height: ${accountHeight}px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    justify-content: center;
 `;
 
 export type AccountSwitcherAccountProps = {

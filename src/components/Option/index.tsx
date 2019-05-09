@@ -22,7 +22,7 @@ export const OptionBox = styled.div`
 export type OptionProps = {
     icon: IconType | React.ReactNode;
     title: string;
-    description: string;
+    description?: string;
     className?: string;
 };
 
@@ -34,7 +34,7 @@ export const Option: React.SFC<OptionProps> = ({ icon, title, description, class
             {iconElement}
             <OptionRightBox>
                 <OptionTitle>{title}</OptionTitle>
-                <OptionDescription>{description}</OptionDescription>
+                {description ? <OptionDescription>{description}</OptionDescription> : undefined}
             </OptionRightBox>
         </OptionBox>
     );

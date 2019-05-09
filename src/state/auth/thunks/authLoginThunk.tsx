@@ -9,9 +9,15 @@ import { authLoginFetchSuccess } from "../actions/AuthLoginFetchSuccess";
 import { authLoginFetchError } from "../actions/AuthLoginFetchError";
 import { setTokenThunk } from "./setTokenThunk";
 import { loginApiErrorsThunk } from "src/state/ui/thunks/loginApiErrorsThunk";
+import { AppState } from "src/state/store";
 
 export const authLoginThunk = (email: string, password: string) => {
-    return async (dispatch: AppDispatch) => {
+    return async (dispatch: AppDispatch, getState: () => AppState) => {
+        const currentLoginFetch = getState().auth.loginFetch;
+        if (currentLoginFetch && currentLoginFetch.status === "loading") {
+            return;
+        }
+
         const fetchId = uniqueId();
         dispatch(setTokenThunk(undefined, undefined, undefined));
         dispatch(authLoginFetchStart(fetchId));

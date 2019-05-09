@@ -52,6 +52,8 @@ const iconTypeMap = new Map<TransactionCategory, IconType>([
     ["food", "Restaurant"],
     ["groceries", "Groceries"],
     ["transport", "Transport"],
+    ["operation", "Operation"],
+    ["topup", "Topup"],
 ]);
 
 export type TransactionListItemProps = {

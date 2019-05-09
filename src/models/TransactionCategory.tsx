@@ -1,1 +1,1 @@
-export type TransactionCategory = "food" | "groceries" | "transport";
+export type TransactionCategory = "food" | "groceries" | "transport" | "operation" | "topup";

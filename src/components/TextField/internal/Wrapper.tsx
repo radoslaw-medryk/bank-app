@@ -1,5 +1,5 @@
 import { styled } from "linaria/react";
-import { TextFieldMode } from "./Mode";
+import { TextFieldMode } from "../Mode";
 
 export type TextFieldWrapperProps = {
     mode: TextFieldMode;

@@ -17,7 +17,9 @@ export type TransactionListProps = {
 
 export const TransactionList: React.SFC<TransactionListProps> = ({ height, accountId, entries, getMore }) => {
     React.useEffect(() => {
-        getMore();
+        if (accountId !== undefined) {
+            getMore();
+        }
     }, [accountId]);
 
     if (entries.length === 0) {
