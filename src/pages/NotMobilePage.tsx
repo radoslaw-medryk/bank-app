@@ -61,8 +61,8 @@ export const NotMobilePage: React.SFC<PageProps> = ({ history }) => {
                 ) : (
                     <DescriptionBox>
                         This application is designed for mobile devices. While desktop-friendly UI is planned for the
-                        future, for now open this page on mobile device, or resize your browser window to smaller size
-                        to view the app.
+                        future, for now please resize your browser window to a smaller size to view the app, or open
+                        this page on a mobile device.
                     </DescriptionBox>
                 )}
             </Section>
