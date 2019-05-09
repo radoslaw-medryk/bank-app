@@ -1,5 +1,5 @@
 import * as React from "react";
-import { LoginRegisterSection } from "../LoginRegisterSection";
+import { LoginRegisterForm } from "../LoginRegisterSection";
 import { Icon } from "../Icon";
 import { TextField } from "../TextField";
 import { LoginRegisterSectionSwitch } from "../LoginRegisterSection/Switch";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../Button";
 import { RegisterFieldKey } from "src/state/ui/state";
 import { HorizontalCentered } from "../HorizontalCentered";
+import { HiddenSubmit } from "../HiddenSubmit";
 
 export type RegisterFormProps = {
     onFieldChanged: (field: RegisterFieldKey, value: string) => void;
@@ -34,8 +35,14 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
     isLoading,
     onSubmit,
 }) => {
+    const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        onSubmit();
+    };
+
     return (
-        <LoginRegisterSection>
+        <LoginRegisterForm onSubmit={onFormSubmit}>
+            <HiddenSubmit />
             <HorizontalCentered>
                 <Icon type="Logo" className="logo" />
             </HorizontalCentered>
@@ -76,6 +83,6 @@ export const RegisterForm: React.SFC<RegisterFormProps> = ({
             <Button className="button" onClick={onSubmit} isLoading={isLoading}>
                 Create account
             </Button>
-        </LoginRegisterSection>
+        </LoginRegisterForm>
     );
 };

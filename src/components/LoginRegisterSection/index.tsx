@@ -1,8 +1,8 @@
 import { styled } from "linaria/react";
-import { Section } from "../Section";
 
-export const LoginRegisterSection = styled(Section)`
+export const LoginRegisterForm = styled.form`
     height: 100%;
+    margin: 0 30px;
     display: flex;
     flex-flow: column nowrap;
 

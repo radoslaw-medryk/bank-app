@@ -9,6 +9,7 @@ import { Account } from "src/models/Account";
 import { Currency } from "src/models/Currency";
 import { standardFormatMoney } from "src/helpers/standardFormatMoney";
 import Big from "big.js";
+import { HiddenSubmit } from "../HiddenSubmit";
 
 type TextBlockProps = JSX.IntrinsicElements["p"] & {
     isRed?: boolean;
@@ -81,8 +82,14 @@ export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
         afterBalanceFormatted = `${afterValueFormatted} ${currencyCode}`;
     }
 
+    const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        onSubmit && onSubmit();
+    };
+
     return (
-        <>
+        <form onSubmit={onFormSubmit}>
+            <HiddenSubmit />
             <TextBlock>Send transfer:</TextBlock>
             <SectionWithMargins>
                 <MoneyField
@@ -108,6 +115,6 @@ export const TransferToFriend: React.SFC<TransferToFriendProps> = ({
                     Transfer
                 </Button>
             </SectionWithMargins>
-        </>
+        </form>
     );
 };

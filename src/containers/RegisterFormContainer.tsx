@@ -43,6 +43,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
         onSubmit: (email: string, password: string, confirmPassword: string) => {
             if (email.length < 5 || Validation.validateEmail(email).error) {
                 dispatch(uiSetErrors(registerArea, [emailField], "Please provide valid email address"));
+                return;
             }
 
             if (password.length < 8) {
