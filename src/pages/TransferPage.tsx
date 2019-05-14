@@ -16,6 +16,8 @@ import { QuickMenu } from "src/components/QuickMenu";
 import { TransferFriendSuccessfulRedirect } from "src/containers/TransferFriendSuccessfulRedirect";
 import { TransferSuccess } from "src/components/TransferSuccess";
 import { MissingPage } from "./MissingPage";
+import { QuickMenuItem } from "src/components/QuickMenu/Item";
+import { AddFriendContainer } from "src/containers/AddFriendContainer";
 
 const SelectPart: React.SFC<PageProps> = ({ match }) => (
     <>
@@ -33,13 +35,26 @@ const FriendsPart: React.SFC<PageProps> = ({ match }) => {
     return (
         <>
             <FetchFriendsContainer />
-            <QuickMenu />
+            <QuickMenu>
+                <QuickMenuItem to={`${match.url}/add`} icon="AddFriend" />
+            </QuickMenu>
             <AccountSwitcherContainer />
             <Section>
                 <Spacer height="30px" />
                 <TextField placeholder="Search" icon="Search" value={search} onChange={setSearch} />
                 <FriendsListContainer linkTo={friend => `${match.url}/${friend.id}`} search={search} />
             </Section>
+        </>
+    );
+};
+
+const AddFriendPart: React.SFC<PageProps> = ({ match, history }) => {
+    const onClose = () => history.goBack();
+
+    return (
+        <>
+            <QuickMenu showClose={true} onClose={onClose} />
+            <AddFriendContainer />
         </>
     );
 };
@@ -78,6 +93,7 @@ export const TransferPage: React.SFC<PageProps> = ({ match }) => {
                 <Route exact path={`${match.url}/`} component={SelectPart} />
                 <Route exact path={`${match.url}/success`} component={SuccessPart} />
                 <Route exact path={`${match.url}/friend`} component={FriendsPart} />
+                <Route exact path={`${match.url}/friend/add`} component={AddFriendPart} />
                 <Route exact path={`${match.url}/friend/:id`} component={SelectedFriendPart} />
                 <Route path={`${match.url}/`} component={MissingPage} />
             </Switch>

@@ -9,6 +9,10 @@ import { TransferFriendFetchSuccess } from "./actions/TransferFriendFetchSuccess
 import { TransferFriendFetchError } from "./actions/TransferFriendFetchError";
 import { TransferFriendFetchReset } from "./actions/TransferFriendFetchReset";
 import { FriendsReset } from "./actions/FriendsReset";
+import { AddFriendFetchStart } from "./actions/AddFriendFetchStart";
+import { AddFriendFetchSuccess } from "./actions/AddFriendFetchSuccess";
+import { AddFriendFetchError } from "./actions/AddFriendFetchError";
+import { AddFriendFetchReset } from "./actions/AddFriendFetchReset";
 
 export const friendsReducer = (
     state: FriendsState | undefined = initialFriendsState,
@@ -35,6 +39,18 @@ export const friendsReducer = (
 
         case FriendsActionType.TransferFriendFetchReset:
             return transferFriendFetchReset(state, action);
+
+        case FriendsActionType.AddFriendFetchStart:
+            return addFriendFetchStart(state, action);
+
+        case FriendsActionType.AddFriendFetchSuccess:
+            return addFriendFetchSuccess(state, action);
+
+        case FriendsActionType.AddFriendFetchError:
+            return addFriendFetchError(state, action);
+
+        case FriendsActionType.AddFriendFetchReset:
+            return addFriendFetchReset(state, action);
 
         case FriendsActionType.FriendsReset:
             return friendsReset(state, action);
@@ -158,6 +174,73 @@ const transferFriendFetchReset = (state: FriendsState, action: TransferFriendFet
     const newState: FriendsState = {
         ...state,
         transferFriendFetch: undefined,
+    };
+    return newState;
+};
+
+const addFriendFetchStart = (state: FriendsState, action: AddFriendFetchStart): FriendsState => {
+    const currentFetch = state.addFriendFetch;
+
+    if (currentFetch && currentFetch.status === "loading") {
+        return state;
+    }
+
+    const newState: FriendsState = {
+        ...state,
+        addFriendFetch: {
+            id: action.id,
+            status: "loading",
+        },
+    };
+    return newState;
+};
+
+const addFriendFetchSuccess = (state: FriendsState, action: AddFriendFetchSuccess): FriendsState => {
+    const currentFetch = state.addFriendFetch;
+
+    if (!currentFetch || currentFetch.status !== "loading" || currentFetch.id !== action.id) {
+        return state;
+    }
+
+    const newState: FriendsState = {
+        ...state,
+        addFriendFetch: {
+            id: action.id,
+            status: "success",
+            data: action.data,
+        },
+    };
+    return newState;
+};
+
+const addFriendFetchError = (state: FriendsState, action: AddFriendFetchError): FriendsState => {
+    const currentFetch = state.addFriendFetch;
+
+    if (!currentFetch || currentFetch.status !== "loading" || currentFetch.id !== action.id) {
+        return state;
+    }
+
+    const newState: FriendsState = {
+        ...state,
+        addFriendFetch: {
+            id: action.id,
+            status: "error",
+            error: action.error,
+        },
+    };
+    return newState;
+};
+
+const addFriendFetchReset = (state: FriendsState, action: AddFriendFetchReset): FriendsState => {
+    const currentFetch = state.addFriendFetch;
+
+    if (!currentFetch || currentFetch.status === "loading") {
+        return state;
+    }
+
+    const newState: FriendsState = {
+        ...state,
+        addFriendFetch: undefined,
     };
     return newState;
 };
