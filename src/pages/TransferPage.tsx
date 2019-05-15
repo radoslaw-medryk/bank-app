@@ -14,10 +14,11 @@ import { TransferToFriendContainer } from "src/containers/TransferToFriendContai
 import { FetchFriendsContainer } from "src/containers/FetchFriendsContainer";
 import { QuickMenu } from "src/components/QuickMenu";
 import { TransferFriendSuccessfulRedirect } from "src/containers/TransferFriendSuccessfulRedirect";
-import { TransferSuccess } from "src/components/TransferSuccess";
 import { MissingPage } from "./MissingPage";
 import { QuickMenuItem } from "src/components/QuickMenu/Item";
 import { AddFriendContainer } from "src/containers/AddFriendContainer";
+import { AddFriendSuccessfulRedirect } from "src/containers/AddFriendSuccessfulRedirect";
+import { SuccessPopup } from "src/components/SuccessPopup";
 
 const SelectPart: React.SFC<PageProps> = ({ match }) => (
     <>
@@ -53,6 +54,7 @@ const AddFriendPart: React.SFC<PageProps> = ({ match, history }) => {
 
     return (
         <>
+            <AddFriendSuccessfulRedirect to={`/transfer/friend/add/success`} />
             <QuickMenu showClose={true} onClose={onClose} />
             <AddFriendContainer />
         </>
@@ -73,13 +75,25 @@ const SelectedFriendPart: React.SFC<PageProps> = ({ match, history }) => {
     );
 };
 
-const SuccessPart: React.SFC<PageProps> = ({ match, history }) => {
+const TransferSuccessPart: React.SFC<PageProps> = ({ match, history }) => {
     const onClose = () => history.push("/");
 
     return (
         <PageBox>
             <QuickMenu showClose={true} onClose={onClose} />
-            <TransferSuccess />
+            <SuccessPopup title="Transfer successful!" />
+            <MobileMenuContainer />
+        </PageBox>
+    );
+};
+
+const AddFriendSuccessPart: React.SFC<PageProps> = ({ match, history }) => {
+    const onClose = () => history.push("/transfer/friend");
+
+    return (
+        <PageBox>
+            <QuickMenu showClose={true} onClose={onClose} />
+            <SuccessPopup title="You made a new friend!" />
             <MobileMenuContainer />
         </PageBox>
     );
@@ -91,8 +105,9 @@ export const TransferPage: React.SFC<PageProps> = ({ match }) => {
             <AuthRedirect to="/login" when="not-logged-in" />
             <Switch>
                 <Route exact path={`${match.url}/`} component={SelectPart} />
-                <Route exact path={`${match.url}/success`} component={SuccessPart} />
+                <Route exact path={`${match.url}/success`} component={TransferSuccessPart} />
                 <Route exact path={`${match.url}/friend`} component={FriendsPart} />
+                <Route exact path={`${match.url}/friend/add/success`} component={AddFriendSuccessPart} />
                 <Route exact path={`${match.url}/friend/add`} component={AddFriendPart} />
                 <Route exact path={`${match.url}/friend/:id`} component={SelectedFriendPart} />
                 <Route path={`${match.url}/`} component={MissingPage} />
