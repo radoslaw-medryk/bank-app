@@ -22,17 +22,17 @@ const TitleBox = styled.p`
     text-align: center;
 `;
 
-export type TransferSuccessProps = {
-    //
+export type SuccessPopupProps = {
+    title?: string;
 };
 
-export const TransferSuccess: React.SFC<TransferSuccessProps> = ({}) => {
+export const SuccessPopup: React.SFC<SuccessPopupProps> = ({ title }) => {
     return (
         <Section>
             <IconBox>
                 <Icon type="Success" />
             </IconBox>
-            <TitleBox>Transfer successful!</TitleBox>
+            <TitleBox>{title}</TitleBox>
         </Section>
     );
 };

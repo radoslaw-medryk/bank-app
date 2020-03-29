@@ -51,4 +51,5 @@ export type IconType =
     | "Operation"
     | "Topup"
     | "Wip"
-    | "Mobile";
+    | "Mobile"
+    | "AddFriend";

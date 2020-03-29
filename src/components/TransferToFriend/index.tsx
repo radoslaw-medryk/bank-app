@@ -40,7 +40,7 @@ export type TransferToFriendProps = {
     selectedAccount: Account | undefined;
     setSelectedAccount: (account: Account) => void;
     value: Big | undefined;
-    valueError?: string | undefined;
+    valueError?: string;
     setValue?: (value: Big | undefined) => void;
     onSubmit?: () => void;
 };
